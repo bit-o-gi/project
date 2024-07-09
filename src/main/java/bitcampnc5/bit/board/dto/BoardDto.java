@@ -1,12 +1,14 @@
 package bitcampnc5.bit.board.dto;
 
 import lombok.Builder;
+import lombok.Data;
 
 @Builder
-public record BoardDto(
-	long id,
-	String name,
-	String releaseDate
-) {
+@Data
+public class BoardDto{
+	private Long id;
 
+	private String title;
+
+	private String content;
 }

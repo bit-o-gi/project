@@ -8,6 +8,11 @@ input BoardDto {
     name: String!
     releaseDate: String
 }
+type BoardReqDto{
+    id: ID!
+    title: String!
+    content: String
+}
 
 type Member{
     id: ID!
@@ -27,7 +32,9 @@ type Query{
     getMember(id: ID!): Member
     getMembers: [Member]
     getAObject(id: ID): AObject
-    getBoard(id: ID): BoardDto
+    getBoard(id: ID): BoardReqDto
+    getBoards: [BoardReqDto]
+    delete(id: ID) : Boolean
 }
 
 type Mutation{
