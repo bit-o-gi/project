@@ -29,8 +29,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         checkScheduleStartToEndValid(scheduleRequest.getStartDateTime(), schedule.getEndDateTime());
 
         schedule.update(scheduleRequest);
-        Schedule updatedSchedule = scheduleRequest.toEntity();
-        return scheduleRepository.save(updatedSchedule);
+        return scheduleRepository.save(schedule);
     }
 
     public Schedule delete(Long id) {
