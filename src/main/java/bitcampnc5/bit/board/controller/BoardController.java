@@ -1,9 +1,12 @@
 package bitcampnc5.bit.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bitcampnc5.bit.User.dto.UserDto;
 import bitcampnc5.bit.board.dto.BoardReqDto;
+import jakarta.persistence.Entity;
+import org.modelmapper.ModelMapper;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -35,14 +38,16 @@ public class BoardController {
         System.out.println("GetBoard");
         BoardDto boardDto = new BoardDto();
         boardDto.setId(id);
-        boardService.GetBoardService(boardDto);
-        return null;
+        return BoardReqDto.of(boardService.GetBoardService(boardDto));
     }
 
     @QueryMapping
     public List<BoardReqDto> getBoards() {
-        System.out.println("GetBoards");
-        return null;
+        List<BoardReqDto> boardReqDtos = new ArrayList<>();
+        boardService.getBoardList().forEach(Entity ->{
+            boardReqDtos.add(new ModelMapper().map(Entity,BoardReqDto.class));
+        });
+        return boardReqDtos;
     }
 
     @MutationMapping

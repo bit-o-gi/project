@@ -20,4 +20,9 @@ public class Board {
 	@Column
 	private Long id;
 
+	private String title;
+
+	private String content;
+
+	private String Writer;
 }
