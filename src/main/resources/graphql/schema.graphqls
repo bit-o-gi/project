@@ -30,6 +30,8 @@ type Query{
 type Mutation{
     save(name: String!, age: Int!): Member
     CreateBoard(boardInput: BoardInput): BoardReqDto
+    UpdateBoard(boardInput: BoardInput): BoardReqDto
+    delete(id: ID): Boolean
 }
 
 input BoardInput {

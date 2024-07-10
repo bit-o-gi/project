@@ -49,4 +49,19 @@ public class BoardService {
     }
 
 
+    public BoardReqDto UpdateBoard(BoardDto boardInput) {
+        Board board = boardRepogitory.findById(boardInput.getId())
+                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+        board.setTitle(boardInput.getTitle());
+        board.setContent(boardInput.getContent());
+
+        Board savedBoard = boardRepogitory.save(board);
+        return BoardReqDto.of(BoardDto.of(savedBoard));
+    }
+
+    public void delete(Long id) {
+        Board board = boardRepogitory.findById(id)
+                .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+        boardRepogitory.delete(board);
+    }
 }
