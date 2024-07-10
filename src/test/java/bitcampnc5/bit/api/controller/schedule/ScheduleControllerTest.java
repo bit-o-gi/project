@@ -1,7 +1,5 @@
 package bitcampnc5.bit.api.controller.schedule;
 
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -11,9 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import bitcampnc5.bit.api.dto.schedule.ScheduleRequest;
 import bitcampnc5.bit.api.service.schedule.ScheduleService;
-import bitcampnc5.bit.api.service.schedule.ScheduleServiceImpl;
 import bitcampnc5.bit.domain.schedule.Schedule;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;

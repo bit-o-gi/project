@@ -1,7 +1,6 @@
 package bitcampnc5.bit.domain.schedule;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import bitcampnc5.bit.api.dto.schedule.ScheduleRequest;
 import java.time.LocalDateTime;

@@ -1,7 +1,6 @@
 package bitcampnc5.bit.api.dto.schedule;
 
 import bitcampnc5.bit.domain.schedule.Schedule;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.Builder;
