@@ -13,6 +13,7 @@ import bitcampnc5.bit.api.dto.schedule.ScheduleRequest;
 import bitcampnc5.bit.api.service.schedule.ScheduleService;
 import bitcampnc5.bit.api.service.schedule.ScheduleServiceImpl;
 import bitcampnc5.bit.domain.schedule.Schedule;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
@@ -60,4 +61,46 @@ class ScheduleControllerTest {
                 .andExpect(jsonPath("$.userId").value("testId"))
                 .andExpect(jsonPath("$.endDateTime").value(String.valueOf(LocalDateTime.of(2024, 7, 17, 14, 47, 59))));
     }
+
+    @DisplayName("일정을 등록할 때, 일정 제목은 필수값이다.")
+    @Test
+    void createScheduleWithoutTitleTest() throws Exception {
+        // given
+        ScheduleRequest request = ScheduleRequest.builder()
+                .userId("testId")
+                .content("일정 내용")
+                .startDateTime(LocalDateTime.of(2024, 7, 10, 14, 47, 59))
+                .endDateTime(LocalDateTime.of(2024, 7, 17, 14, 47, 59))
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        post("/api/v1/schedules/new")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsBytes(request))
+                ).andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @DisplayName("일정을 등록할 때, 시작 일시는 필수값이다.")
+    @Test
+    void createScheduleWithoutStartDateTimeTest() throws Exception {
+        // given
+        ScheduleRequest request = ScheduleRequest.builder()
+                .userId("testId")
+                .title("일정 제목")
+                .content("일정 내용")
+                .endDateTime(LocalDateTime.of(2024, 7, 17, 14, 47, 59))
+                .build();
+
+        // when // then
+        mockMvc.perform(
+                        post("/api/v1/schedules/new")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsBytes(request))
+                ).andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+
 }
