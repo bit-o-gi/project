@@ -1,5 +1,6 @@
 package bitcampnc5.bit.domain.schedule;
 
+import bitcampnc5.bit.api.dto.schedule.ScheduleRequest;
 import bitcampnc5.bit.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,5 +38,13 @@ public class Schedule extends BaseEntity {
         this.content = content;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+    }
+
+    public void update(ScheduleRequest schedule) {
+        this.userId = schedule.getUserId();
+        this.title = schedule.getTitle();
+        this.content = schedule.getContent();
+        this.startDateTime = schedule.getStartDateTime();
+        this.endDateTime = schedule.getEndDateTime();
     }
 }
