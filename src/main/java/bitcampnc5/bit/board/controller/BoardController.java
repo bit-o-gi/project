@@ -51,14 +51,14 @@ public class BoardController {
     }
 
     @MutationMapping
-    public String someMethodUpdate(@Argument String changeValue) {
-        testAString = changeValue;
-        return testAString;
+    public BoardReqDto CreateBoard(@Argument BoardDto boardInput) {
+        return boardService.CreateBoard(boardInput);
     }
 
     @MutationMapping
-	public Boolean delete(@Argument Long id) {
-		return true;
+	public Boolean delete(@Argument BoardDto boardInput) {
+
+        return true;
 	}
 
 

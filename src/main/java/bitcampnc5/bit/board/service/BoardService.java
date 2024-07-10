@@ -1,5 +1,7 @@
 package bitcampnc5.bit.board.service;
 
+import bitcampnc5.bit.board.dto.BoardReqDto;
+import bitcampnc5.bit.board.entity.Board;
 import bitcampnc5.bit.board.repogitory.BoardRepogitory;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
@@ -9,6 +11,7 @@ import bitcampnc5.bit.board.dto.BoardDto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +20,33 @@ import java.util.List;
 @Service
 public class BoardService {
 
-	private BoardRepogitory boardRepogitory;
+    private BoardRepogitory boardRepogitory;
 
-//	TODO: Exception 잡아야됨.
-		public BoardDto GetBoardService(BoardDto boardDto){
+    //	TODO: Exception 잡아야됨
+    @Transactional()
+    public BoardDto GetBoardService(BoardDto boardDto) {
 
-			return BoardDto.of(boardRepogitory.findById(boardDto.getId()).orElseThrow(EntityNotFoundException::new));
-		}
+        return BoardDto.of(boardRepogitory.findById(boardDto.getId()).orElseThrow(EntityNotFoundException::new));
+    }
 
-		public List<BoardDto> getBoardList(){
-			List<BoardDto> boardlist = new ArrayList<>();
-			boardRepogitory.findAll().forEach(entity -> {
-				boardlist.add(new ModelMapper().map(entity, BoardDto.class));
-			});
-		return boardlist;
-	}
 
+    @Transactional()
+    public List<BoardDto> getBoardList() {
+        List<BoardDto> boardlist = new ArrayList<>();
+        boardRepogitory.findAll().forEach(entity -> {
+            boardlist.add(new ModelMapper().map(entity, BoardDto.class));
+        });
+        return boardlist;
+    }
+
+
+    public BoardReqDto CreateBoard(BoardDto boardInput) {
+        Board entity = Board.builder()
+                .title(boardInput.getTitle())
+                .content(boardInput.getContent())
+                .build();
+        return BoardReqDto.of(BoardDto.of(boardRepogitory.save(entity)));
+    }
 
 
 }
