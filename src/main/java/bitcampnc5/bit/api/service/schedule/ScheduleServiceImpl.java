@@ -4,7 +4,6 @@ import bitcampnc5.bit.api.dto.schedule.ScheduleRequest;
 import bitcampnc5.bit.api.repository.schedule.ScheduleRepository;
 import bitcampnc5.bit.domain.schedule.Schedule;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,9 +33,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.save(updatedSchedule);
     }
 
-    public void delete(Long id) {
-
+    public Schedule delete(Long id) {
+        Schedule deleteSchedule = scheduleRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 일정이 존재하지 않습니다."));
         scheduleRepository.deleteById(id);
+        return deleteSchedule;
     }
 
     private void checkScheduleStartToEndValid(LocalDateTime startDateTime, LocalDateTime endDateTime) {

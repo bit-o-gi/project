@@ -10,5 +10,5 @@ public interface ScheduleService {
 
     Schedule patch(Long id, ScheduleRequest scheduleRequest);
 
-    void delete(Long id);
+    Schedule delete(Long id);
 }
