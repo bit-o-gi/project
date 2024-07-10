@@ -38,6 +38,7 @@ input BoardInput {
     id: ID
     title: String
     content: String
+    writer : String
 }
 
 
