@@ -20,10 +20,10 @@ public class ScheduleRequest {
 
     private String content;
 
-    @NotEmpty(message = "시작 일시는 필수입니다.")
+    @NotNull(message = "시작 일시는 필수입니다.")
     private LocalDateTime startDateTime;
 
-    @NotEmpty(message = "종료 일시는 필수입니다.")
+    @NotNull(message = "종료 일시는 필수입니다.")
     private LocalDateTime endDateTime;
 
     @Builder
