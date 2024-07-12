@@ -10,6 +10,7 @@ type Member{
     age: Int!
 }
 
+#TODO : 추후 삭제 예정
 type AObject {
     id: ID
     name: String

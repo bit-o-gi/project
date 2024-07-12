@@ -1,15 +1,14 @@
 package bitcampnc5.bit.board.dto;
 
-import bitcampnc5.bit.User.dto.UserDto;
+import org.modelmapper.ModelMapper;
+
 import bitcampnc5.bit.board.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.modelmapper.ModelMapper;
 
 @Builder
 @Getter
@@ -17,7 +16,8 @@ import org.modelmapper.ModelMapper;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardDto{
+public class BoardDto {
+	// TODO : 글쓴 날짜 , 유저 정보 , 필요
 	private Long id;
 
 	private String title;
@@ -28,11 +28,11 @@ public class BoardDto{
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
-	public Board creatBoard(){
-		return modelMapper.map(this,Board.class);
+	public Board creatBoard() {
+		return modelMapper.map(this, Board.class);
 	}
 
-	public static BoardDto of(Board board){
-		return modelMapper.map(board,BoardDto.class);
+	public static BoardDto of(Board board) {
+		return modelMapper.map(board, BoardDto.class);
 	}
 }
