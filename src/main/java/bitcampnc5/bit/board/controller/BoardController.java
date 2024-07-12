@@ -68,4 +68,55 @@ public class BoardController {
 		return true;
 	}
 
+
+//NOTE : Input 스타일
+	// CreateBoard
+	// mutation {
+	//   CreateBoard(boardInput: {
+	//     title: "New Board"
+	//     content: "This is the content of the new board"
+	//     writer: "John Doe"
+	//   }) {
+	//     id
+	//     title
+	//     content
+	//   }
+	// }
+
+	// getBoard
+	// query {
+	// 	getBoard(id: "123") {
+	// 		id
+	// 			title
+	// 		content
+	// 	}
+	// }
+
+	// getBoards
+	// query {
+	// 	getBoards {
+	// 		id
+	// 			title
+	// 		content
+	// 	}
+	// }
+
+	// UpdateBoard
+	// mutation {
+	// 	UpdateBoard(boardInput: {
+	// 		id: "123"
+	// 		title: "Updated Board"
+	// 		content: "This is an updated board"
+	// 		writer: "Jane Doe"
+	// 	}) {
+	// 		id
+	// 			title
+	// 		content
+	// 	}
+	// }
+
+	//  delete
+	// mutation {
+	// 	delete(id: "123")
+	// }
 }
