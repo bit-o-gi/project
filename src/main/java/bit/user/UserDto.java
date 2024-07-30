@@ -1,4 +1,4 @@
-package bit.User;
+package bit.user;
 
 import lombok.Data;
 
