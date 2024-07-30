@@ -1,4 +1,4 @@
-package bit.api.controller.schedule;
+package bit.schedule.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -7,10 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import bit.api.controller.schedule.ScheduleController;
-import bit.api.dto.schedule.ScheduleRequest;
-import bit.api.service.schedule.ScheduleService;
-import bit.domain.schedule.Schedule;
+import bit.schedule.dto.ScheduleRequest;
+import bit.schedule.service.ScheduleService;
+import bit.schedule.domain.Schedule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;

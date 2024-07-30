@@ -1,7 +1,7 @@
-package bit.api.service.schedule;
+package bit.schedule.service;
 
-import bit.api.dto.schedule.ScheduleRequest;
-import bit.domain.schedule.Schedule;
+import bit.schedule.dto.ScheduleRequest;
+import bit.schedule.domain.Schedule;
 
 public interface ScheduleService {
     Schedule getSchedule(Long id);

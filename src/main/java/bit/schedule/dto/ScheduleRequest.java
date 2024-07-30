@@ -1,6 +1,6 @@
-package bit.api.dto.schedule;
+package bit.schedule.dto;
 
-import bit.domain.schedule.Schedule;
+import bit.schedule.domain.Schedule;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.Builder;

@@ -1,8 +1,8 @@
-package bit.api.service.schedule;
+package bit.schedule.service;
 
-import bit.api.dto.schedule.ScheduleRequest;
-import bit.api.repository.schedule.ScheduleRepository;
-import bit.domain.schedule.Schedule;
+import bit.schedule.dto.ScheduleRequest;
+import bit.schedule.repository.ScheduleRepository;
+import bit.schedule.domain.Schedule;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
