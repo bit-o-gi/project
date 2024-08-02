@@ -1,7 +1,6 @@
-package bit.domain.schedule;
+package bit.schedule.domain;
 
-import bit.api.dto.schedule.ScheduleRequest;
-import bit.domain.BaseEntity;
+import bit.schedule.dto.ScheduleRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

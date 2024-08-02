@@ -1,13 +1,12 @@
-package bit.api.service.schedule;
+package bit.schedule.service;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.when;
 
-import bit.api.dto.schedule.ScheduleRequest;
-import bit.api.repository.schedule.ScheduleRepository;
-import bit.api.service.schedule.ScheduleServiceImpl;
-import bit.domain.schedule.Schedule;
+import bit.schedule.dto.ScheduleRequest;
+import bit.schedule.repository.ScheduleRepository;
+import bit.schedule.domain.Schedule;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

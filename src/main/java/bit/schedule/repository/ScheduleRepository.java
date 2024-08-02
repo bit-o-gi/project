@@ -1,6 +1,6 @@
-package bit.api.repository.schedule;
+package bit.schedule.repository;
 
-import bit.domain.schedule.Schedule;
+import bit.schedule.domain.Schedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

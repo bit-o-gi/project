@@ -1,8 +1,8 @@
-package bit.api.controller.schedule;
+package bit.schedule.controller;
 
-import bit.api.dto.schedule.ScheduleRequest;
-import bit.api.service.schedule.ScheduleService;
-import bit.domain.schedule.Schedule;
+import bit.schedule.dto.ScheduleRequest;
+import bit.schedule.service.ScheduleService;
+import bit.schedule.domain.Schedule;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

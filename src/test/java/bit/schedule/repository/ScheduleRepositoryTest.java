@@ -1,10 +1,9 @@
-package bit.api.repository.schedule;
+package bit.schedule.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-import bit.api.repository.schedule.ScheduleRepository;
-import bit.domain.schedule.Schedule;
+import bit.schedule.domain.Schedule;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
