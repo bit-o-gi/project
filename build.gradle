@@ -6,7 +6,10 @@ plugins {
 
 group = 'bitcampNC5'
 version = '0.0.1-SNAPSHOT'
-
+//# Release Note
+//
+//
+//
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
@@ -37,6 +40,9 @@ dependencies {
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // log
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.14'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok'

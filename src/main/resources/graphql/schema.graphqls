@@ -4,37 +4,42 @@
 #Boolean: true 또는 false.
 #ID: ID 스칼라 타입은 객체를 다시 요청하거나 캐시의 키로써 자주 사용되는 고유 식별자를 나타냅니다. ID 타입은 String 과 같은 방법으로 직렬화되지만, ID 로 정의하는 것은 사람이 읽을 수 있도록 하는 의도가 아니라는 것을 의미
 
-type Member{
-    id: ID!
-    name: String!
-    age: Int!
-}
-
-#TODO : 추후 삭제 예정
-type AObject {
-    id: ID
-    name: String
-    description: String!
-    amount: Int
-}
 
 type Query{
     testA: String
-    getMember(id: ID!): Member
-    getMembers: [Member]
-    getAObject(id: ID): AObject
     getBoard(id: ID): BoardReqDto
     getBoards: [BoardReqDto]
     delete(id: ID) : Boolean
 }
 
 type Mutation{
-    save(name: String!, age: Int!): Member
+    #    보드
     CreateBoard(boardInput: BoardInput): BoardReqDto
     UpdateBoard(boardInput: BoardInput): BoardReqDto
     delete(id: ID): Boolean
+    #    기념일
+    createBoard(anDto : Andto) : AnReqdto
+}
+#   기념일
+input Andto{
+    id : ID
+    writetime : String
+    updatetime : String
+    title : String
+    withpeople : String
+    content : String
 }
 
+type AnReqdto{
+    id : ID
+    writetime : String
+    updatetime : String
+    title : String
+    withpeople : String
+    content : String
+}
+
+#   보드
 input BoardInput {
     id: ID
     title: String
