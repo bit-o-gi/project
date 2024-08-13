@@ -20,12 +20,9 @@ public class KaKaoController {
 
     @GetMapping("/kakao")
     public String getAuthKakao() {
-        StringBuffer url = new StringBuffer();
-        url.append("https://kauth.kakao.com/oauth/authorize?");
-        url.append("client_id" + clientId);
-        url.append("&redirect_uri=" + redirectUri);
-        url.append("&response_type=code");
-        return "redirect:" + url;
+        return "https://kauth.kakao.com/oauth/authorize?"
+                + "client_id=" + clientId
+                + "&redirect_uri=" + redirectUri
+                + "&response_type=code";
     }
-
 }
