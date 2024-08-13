@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import styled from 'styled-components';
+import kakaoLoginImage from '../assets/images/kakao_login.png';
+import axios from "axios";
 
 function Login() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -10,6 +12,14 @@ function Login() {
         setIsPopupOpen(true);
     }
 
+    const handleKakaoLoginBtn = () => {
+        axios.get('http://localhost:8080/oauth/kakao').then((res) => {
+            window.location.href = res.data;
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
     const closePopup = () => {
         setIsPopupOpen(false);
         navigate('/');
@@ -17,18 +27,21 @@ function Login() {
 
     return (
         <div className="Login">
-            <h2>Login Page</h2>
-            <button onClick={handleLogin}>Login</button>
+            <h2>Login</h2>
+            <ImgButton src={kakaoLoginImage} alt="kakaoLogin" onClick={handleKakaoLoginBtn}/>
             {isPopupOpen && (
                 <Popup>
-                    <h3>Login Form</h3>
+                    <h3>Login</h3>
                     <button onClick={closePopup}>Close</button>
-                    {/* 로그인 폼을 여기에 추가 */}
                 </Popup>
             )}
         </div>
     );
 }
+
+const ImgButton = styled.img`
+    cursor: pointer;
+`;
 
 const Popup = styled.div`
     position: fixed;
