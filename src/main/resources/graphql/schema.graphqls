@@ -18,7 +18,10 @@ type Mutation{
     UpdateBoard(boardInput: BoardInput): BoardReqDto
     delete(id: ID): Boolean
     #    기념일
-    createBoard(anDto : Andto) : AnReqdto
+    createAnniversary(anDto : Andto) : AnReqdto
+    updateAnniversary(anDto : Andto) : AnReqdto
+    deleteBoard(anDto : Andto) : AnReqdto
+
 }
 #   기념일
 input Andto{
