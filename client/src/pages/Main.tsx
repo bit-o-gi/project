@@ -1,15 +1,35 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store';
+import {useLocation} from "react-router-dom";
+import axios from "axios";
 
 const Main = () => {
     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isOpen);
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+
+    useEffect(() => {
+        if (queryParams?.get("code")) {
+            const params = new URLSearchParams;
+            params.append('code', queryParams.get("code") || "");
+
+            axios.post('http://localhost:8080/oauth/kakao/token', params)
+                .then((res) => {
+                    console.log(res.data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+
+        }
+    }, []);
 
     return (
         <MainContainer>
-            <Sidebar />
+            <Sidebar/>
             <Content isSidebarOpen={isSidebarOpen}>
                 <header className="main-header">
                     <h1>우리의 디데이</h1>
@@ -32,7 +52,7 @@ const Content = styled.div<{ isSidebarOpen: boolean }>`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: ${({ isSidebarOpen }) => (isSidebarOpen ? "200px" : "0")};
+    margin-left: ${({isSidebarOpen}) => (isSidebarOpen ? "200px" : "0")};
     transition: margin-left 0.3s;
 `;
 
