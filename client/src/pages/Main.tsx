@@ -3,29 +3,47 @@ import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
 import {useSelector} from 'react-redux';
 import {RootState} from '../store';
-import {useLocation} from "react-router-dom";
 import axios from "axios";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const Main = () => {
     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isOpen);
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (queryParams?.get("code")) {
             const params = new URLSearchParams;
             params.append('code', queryParams.get("code") || "");
+            navigate('/');
 
             axios.post('http://localhost:8080/oauth/kakao/token', params)
                 .then((res) => {
-                    console.log(res.data);
+                    console.log(res);
+                    handleGetUserInfo(res.data);
                 })
                 .catch((err) => {
                     console.log(err);
                 })
-
         }
     }, []);
+
+    const handleGetUserInfo = (at: string) => {
+        axios.post('http://localhost:8080/oauth/kakao/access', at,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+
 
     return (
         <MainContainer>

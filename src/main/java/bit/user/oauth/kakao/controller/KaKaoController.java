@@ -1,5 +1,8 @@
 package bit.user.oauth.kakao.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,11 +36,12 @@ public class KaKaoController {
         return "https://kauth.kakao.com/oauth/authorize?"
                 + "client_id=" + clientId
                 + "&redirect_uri=" + redirectUri
-                + "&response_type=code";
+                + "&response_type=code"
+                + "&scope=account_email";
     }
 
     @PostMapping("/kakao/token")
-    public String postAuthKakao(@RequestBody MultiValueMap<String, String> params) {
+    public String postAuthKakao(@RequestBody MultiValueMap<String, String> params) throws JsonProcessingException {
         String code = params.getFirst("code");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
@@ -54,7 +58,24 @@ public class KaKaoController {
                 "https://kauth.kakao.com/oauth/token", httpEntity, String.class
         );
 
-        System.out.println(response.getBody());
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(response.getBody());
+
+        return jsonNode.get("access_token").asText();
+    }
+
+    @PostMapping("/kakao/access")
+    public String postGetUserInfo(@RequestBody String accessToken) throws JsonProcessingException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+
+        HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "https://kapi.kakao.com/v2/user/me", httpEntity, String.class
+        );
+
         return response.getBody();
     }
 }
