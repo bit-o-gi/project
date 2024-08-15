@@ -17,7 +17,7 @@ class UserTest {
         UserDto userDto = UserDto.builder()
                 .email("pjhwork97@gmail.com")
                 .nickName("AIJoBumSuk")
-                .gender("M")
+                .gender("Male")
                 .platform("kakao")
                 .build();
 
@@ -33,7 +33,7 @@ class UserTest {
         ).containsExactly(
                 "pjhwork97@gmail.com",
                 "AIJoBumSuk",
-                "M",
+                "Male",
                 "kakao"
         );
     }

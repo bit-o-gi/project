@@ -9,5 +9,4 @@ public interface UserService {
 
     User create(UserDto userDto);
 
-
 }
