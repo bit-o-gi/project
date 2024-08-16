@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(DdayController.DDAY_PATH)
 public class DdayController {
 
-    public static final String DDAY_PATH = "/api/v1/dday";
+    public static final String DDAY_PATH = "/api/v1/ddays";
     private final DdayService ddayService;
 
     @GetMapping("/{id}")
@@ -34,6 +35,14 @@ public class DdayController {
     @ResponseStatus(HttpStatus.CREATED)
     public DdayResponse createDday(@Valid @RequestBody DdayRequest ddayRequest) {
         Dday dday = ddayService.createDday(ddayRequest);
+        return DdayResponse.from(dday);
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public DdayResponse updateDday(@PathVariable Long id,
+                                   @Valid @RequestBody DdayRequest ddayRequest) {
+        Dday dday = ddayService.updateDday(id, ddayRequest);
         return DdayResponse.from(dday);
     }
 }

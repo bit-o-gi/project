@@ -21,4 +21,10 @@ public class DdayService {
         Dday ddayInput = ddayRequest.toEntity();
         return ddayRepository.save(ddayInput);
     }
+
+    public Dday updateDday(Long id, DdayRequest ddayRequest) {
+        Dday dday = ddayRepository.findById(id).orElseThrow(DdayNotFoundException::new);
+        dday.update(ddayRequest);
+        return ddayRepository.save(dday);
+    }
 }
