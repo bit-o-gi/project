@@ -4,6 +4,7 @@ import static bit.dday.controller.DdayController.DDAY_PATH;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -34,21 +35,18 @@ class DdayControllerTest {
     @MockBean
     private DdayService ddayService;
 
-
     @DisplayName("디데이 조회 성공")
     @Test
     void getDdaySuccessTest() throws Exception {
         // given
-        Dday dday = MockDday.of();
+        Dday dday = MockDday.mock1();
         when(ddayService.getDday(any())).thenReturn(dday);
 
         // when
         ResultActions result = mockMvc.perform(get(DDAY_PATH + "/" + dday.getId()));
 
         // then
-        result.andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(dday.getId()))
+        result.andDo(print()).andExpect(status().isOk()).andExpect(jsonPath("$.id").value(dday.getId()))
                 .andExpect(jsonPath("$.userId").value(dday.getUserId()))
                 .andExpect(jsonPath("$.title").value(dday.getTitle()))
                 .andExpect(jsonPath("$.targetDate").value(dday.getTargetDate().toString()));
@@ -58,20 +56,48 @@ class DdayControllerTest {
     @Test
     void createDdaySuccessTest() throws Exception {
         // given
-        DdayRequest ddayRequest = MockDdayRequest.of();
-        Dday dday = ddayRequest.toEntity();
+        Dday dday = MockDday.mock1();
+        DdayRequest ddayRequest = MockDdayRequest.mockWith(dday);
         when(ddayService.createDday(any())).thenReturn(dday);
 
         // when
-        mockMvc.perform(
-                        post(DDAY_PATH + "/new")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsBytes(ddayRequest))
-                ).andDo(print())
+        ResultActions result = mockMvc.perform(
+                post(DDAY_PATH + "/new")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(ddayRequest))
+        );
+
+        // then
+        result.andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(ddayRequest.getId()))
-                .andExpect(jsonPath("$.userId").value(ddayRequest.getUserId()))
-                .andExpect(jsonPath("$.title").value(ddayRequest.getTitle()))
-                .andExpect(jsonPath("$.targetDate").value(ddayRequest.getTargetDate().toString()));
+                .andExpect(jsonPath("$.id").value(dday.getId()))
+                .andExpect(jsonPath("$.userId").value(dday.getUserId()))
+                .andExpect(jsonPath("$.title").value(dday.getTitle()))
+                .andExpect(jsonPath("$.targetDate").value(dday.getTargetDate().toString()));
+    }
+
+    @DisplayName("디데이 수정 성공")
+    @Test
+    void updateDdaySuccessTest() throws Exception {
+        // given
+        Dday dday1 = MockDday.mock1();
+        Dday dday2 = MockDday.mock2();
+        DdayRequest ddayRequest = MockDdayRequest.mockWith(dday2);
+        when(ddayService.updateDday(any(), any())).thenReturn(dday2);
+
+        // when
+        ResultActions result = mockMvc.perform(
+                patch(DDAY_PATH + "/" + dday1.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(ddayRequest))
+        );
+
+        // then
+        result.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(dday2.getId()))
+                .andExpect(jsonPath("$.userId").value(dday2.getUserId()))
+                .andExpect(jsonPath("$.title").value(dday2.getTitle()))
+                .andExpect(jsonPath("$.targetDate").value(dday2.getTargetDate().toString()));
     }
 }

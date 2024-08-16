@@ -28,9 +28,9 @@ public class DdayServiceTest {
 
     @DisplayName("디데이 조회 성공")
     @Test
-    void getDdaySuccessTest() {
+    void getDdaySuccessTest() throws Exception {
         // given
-        Dday mockDday = MockDday.of();
+        Dday mockDday = MockDday.mock1();
         when(ddayRepository.findById(mockDday.getId())).thenReturn(Optional.of(mockDday));
 
         // when
@@ -44,8 +44,8 @@ public class DdayServiceTest {
     @Test
     void createDdaySuccessTest() throws Exception {
         //given
-        DdayRequest ddayRequest = MockDdayRequest.of();
-        Dday dday = ddayRequest.toEntity();
+        Dday dday = MockDday.mock1();
+        DdayRequest ddayRequest = MockDdayRequest.mockWith(dday);
         when(ddayRepository.save(any())).thenReturn(dday);
 
         // when
@@ -53,5 +53,24 @@ public class DdayServiceTest {
 
         // then
         assertThat(newDday).usingRecursiveComparison().isEqualTo(dday);
+    }
+
+    @DisplayName("디데이 수정 성공")
+    @Test
+    void updateDdaySuccessTest() throws Exception {
+        // given
+        Dday dday1 = MockDday.mock1();
+        Dday dday2 = MockDday.mock2();
+        DdayRequest ddayRequest = MockDdayRequest.mockWith(dday2);
+        when(ddayRepository.findById(any())).thenReturn(Optional.of(dday1));
+        when(ddayRepository.save(any())).thenReturn(dday2);
+
+        // when
+        Dday newDday = ddayService.updateDday(dday1.getId(), ddayRequest);
+
+        // then
+        assertThat(newDday)
+                .usingRecursiveComparison()
+                .isEqualTo(dday2);
     }
 }

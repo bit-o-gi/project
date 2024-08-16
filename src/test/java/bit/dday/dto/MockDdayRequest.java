@@ -1,29 +1,31 @@
 package bit.dday.dto;
 
+import bit.dday.domain.Dday;
+import bit.dday.domain.MockDday;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 public class MockDdayRequest {
 
-    public static DdayRequest of() throws Exception {
+    public static DdayRequest mockWith(Dday dday) throws Exception {
+        return of(dday.getUserId(), dday.getTitle(), dday.getTargetDate());
+    }
+
+    private static DdayRequest of(String userId, String title, LocalDate targetDate) throws Exception {
         Class clazz = Class.forName("bit.dday.dto.DdayRequest");
         DdayRequest ddayRequest = new DdayRequest();
 
-        Field id = clazz.getDeclaredField("id");
-        id.setAccessible(true);
-        id.set(ddayRequest, 1L);
+        Field userIdField = clazz.getDeclaredField("userId");
+        userIdField.setAccessible(true);
+        userIdField.set(ddayRequest, userId);
 
-        Field userId = clazz.getDeclaredField("userId");
-        userId.setAccessible(true);
-        userId.set(ddayRequest, "testId");
+        Field titleField = clazz.getDeclaredField("title");
+        titleField.setAccessible(true);
+        titleField.set(ddayRequest, title);
 
-        Field title = clazz.getDeclaredField("title");
-        title.setAccessible(true);
-        title.set(ddayRequest, "디데이 제목");
-        Field targetDate = clazz.getDeclaredField("targetDate");
-        targetDate.setAccessible(true);
-        targetDate.set(ddayRequest, LocalDate.of(2024, 8, 15));
+        Field targetDateField = clazz.getDeclaredField("targetDate");
+        targetDateField.setAccessible(true);
+        targetDateField.set(ddayRequest, targetDate);
 
         return ddayRequest;
     }
