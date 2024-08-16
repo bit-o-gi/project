@@ -7,6 +7,8 @@ import bit.dday.service.DdayService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,5 +46,12 @@ public class DdayController {
                                    @Valid @RequestBody DdayRequest ddayRequest) {
         Dday dday = ddayService.updateDday(id, ddayRequest);
         return DdayResponse.from(dday);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> deleteDday(@PathVariable Long id) {
+        ddayService.deleteDday(id);
+        return ResponseEntity.ok().build();
     }
 }

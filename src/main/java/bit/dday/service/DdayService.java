@@ -27,4 +27,11 @@ public class DdayService {
         dday.update(ddayRequest);
         return ddayRepository.save(dday);
     }
+
+    public void deleteDday(Long id) {
+        if (!ddayRepository.existsById(id)) {
+            throw new DdayNotFoundException();
+        }
+        ddayRepository.deleteById(id);
+    }
 }
