@@ -2,6 +2,7 @@ package bit.dday.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.when;
 
 import bit.dday.domain.Dday;
@@ -72,5 +73,18 @@ public class DdayServiceTest {
         assertThat(newDday)
                 .usingRecursiveComparison()
                 .isEqualTo(dday2);
+    }
+
+    @DisplayName("디데이 삭제 성공")
+    @Test
+    void deleteDdaySuccessTest() throws Exception {
+        // given
+        when(ddayRepository.existsById(any())).thenReturn(true);
+        // when
+        ddayService.deleteDday(1L);
+
+        // then
+        then(ddayRepository).should().existsById(any());
+        then(ddayRepository).should().deleteById(any());
     }
 }

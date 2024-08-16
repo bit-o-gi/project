@@ -2,7 +2,9 @@ package bit.dday.controller;
 
 import static bit.dday.controller.DdayController.DDAY_PATH;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -99,5 +101,18 @@ class DdayControllerTest {
                 .andExpect(jsonPath("$.userId").value(dday2.getUserId()))
                 .andExpect(jsonPath("$.title").value(dday2.getTitle()))
                 .andExpect(jsonPath("$.targetDate").value(dday2.getTargetDate().toString()));
+    }
+
+    @Test
+    @DisplayName("디데이 삭제 성공")
+    void deleteDdaySuccessTest() throws Exception {
+        // given
+        doNothing().when(ddayService).deleteDday(any());
+
+        // when
+        ResultActions result = mockMvc.perform(delete(DDAY_PATH + "/" + 1L));
+
+        // then
+        result.andDo(print()).andExpect(status().isOk());
     }
 }
