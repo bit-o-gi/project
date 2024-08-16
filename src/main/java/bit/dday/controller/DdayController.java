@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/dday")
+@RequestMapping(DdayController.DDAY_PATH)
 public class DdayController {
+
+    public static final String DDAY_PATH = "/api/v1/dday";
     private final DdayService ddayService;
 
     @GetMapping("/{id}")
