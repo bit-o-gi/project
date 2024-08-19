@@ -10,8 +10,6 @@ type Query{
     getBoard(id: ID): BoardReqDto
     getBoards: [BoardReqDto]
     delete(id: ID) : Boolean
-    getAnniversary: AnReqdto
-    getListAnniversary(memberId: ID): [AnReqdto]
 }
 
 type Mutation{
