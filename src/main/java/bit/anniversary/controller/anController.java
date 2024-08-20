@@ -9,9 +9,15 @@ import org.springframework.stereotype.Controller;
 
 import bit.anniversary.dto.AnDto;
 import bit.anniversary.dto.AnReqDto;
+import bit.anniversary.sevice.AnService;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class anController {
+
+	private final AnService anniversaryservice;
+
 
 	// 	TODO: 기념일 설정 기능
 	// 	Input : 기념일 시간 , 입력 시간 , 수정 시간 , 기념일 제목 ,글쓴이 , 함께 하는 사람 ,기념일 내용
@@ -19,8 +25,7 @@ public class anController {
 	@MutationMapping
 	public AnReqDto createAnniversary(@Argument AnDto andto) {
 
-		// return boardService.CreateBoard(boardInput);
-		return null;
+		return anniversaryservice.saveAnniverSary(andto).createAnReqDto();
 	}
 
 	//	TODO: 기념일 업데이트 기능
