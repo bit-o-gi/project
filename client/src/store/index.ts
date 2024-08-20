@@ -1,8 +1,10 @@
 import {configureStore} from '@reduxjs/toolkit';
 import sidebarReducer from './reducer/reducerSidebar';
+import userReducer from './reducer/reducerUser';
 
 const store = configureStore({
     reducer: {
+        user: userReducer,
         sidebar: sidebarReducer,
     },
 });

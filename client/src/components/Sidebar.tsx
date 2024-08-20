@@ -1,14 +1,30 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../store';
-import { toggleSidebar } from '../store/reducer/reducerSidebar';
+import {Link} from "react-router-dom";
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from '../store';
+import {toggleSidebar} from '../store/reducer/reducerSidebar';
+import axios from "axios";
+import {getAccessToken} from '../store/reducer/reducerUser';
 
 const Sidebar = () => {
     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isOpen);
     const dispatch = useDispatch();
+    const accessToken = useSelector((state: RootState) => getAccessToken(state));
 
+    const handleLogOut = () => {
+        axios.post('https://kapi.kakao.com/v1/user/logout', {}, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    };
     return (
         <>
             <ToggleButton onClick={() => dispatch(toggleSidebar())}>
@@ -18,6 +34,7 @@ const Sidebar = () => {
                 <SidebarContainer>
                     <NavItem to="/">Home</NavItem>
                     <NavItem to="/login">Login</NavItem>
+                    <div onClick={() => handleLogOut()}>LogOut</div>
                     {/* Add more navigation items as needed */}
                 </SidebarContainer>
             )}
