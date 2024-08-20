@@ -18,9 +18,7 @@ public class anController {
 
 	private final AnService anniversaryservice;
 
-
 	// 	TODO: 기념일 설정 기능
-	// 	Input : 기념일 시간 , 입력 시간 , 수정 시간 , 기념일 제목 ,글쓴이 , 함께 하는 사람 ,기념일 내용
 	// 	TODO: 함께 하는 사람 , 글쓴이 회원가입 이후 구현.
 	@MutationMapping
 	public AnReqDto createAnniversary(@Argument AnDto andto) {
@@ -33,9 +31,7 @@ public class anController {
 	// 	TODO: 함께 하는 사람 , 글쓴이 회원가입 이후 구현
 	@MutationMapping
 	public AnReqDto updateAnniversary(@Argument AnDto andto) {
-
-		// return boardService.CreateBoard(boardInput);
-		return null;
+		return anniversaryservice.updateAnniverSary(andto).createAnReqDto();
 	}
 
 	//	TODO: 기념일 삭제 기능
@@ -43,28 +39,20 @@ public class anController {
 	//  TODO:
 	@MutationMapping
 	public AnReqDto deleteAnniversary(@Argument AnDto andto) {
-
-		// return boardService.CreateBoard(boardInput);
-		return null;
+		anniversaryservice.deleteAnniverSary(andto);
+		return andto.createAnReqDto();
 	}
 
 	//  TODO: 기념일 가져오는기능
-	//  Input : 기념일 id or 회원 id
-	//
 	@QueryMapping
-	public AnReqDto getAnniversary() {
-
-		// return boardService.CreateBoard(boardInput);
-		return null;
+	public AnReqDto getAnniversary(@Argument AnDto andto) {
+		return anniversaryservice.getAnniverSary(andto);
 	}
 
 	// TODO : 기념일 리스트 가져오는기능
-	// Input : 회원 id
 	@QueryMapping
 	public List<AnReqDto> getListAnniversary() {
-
-		// return boardService.CreateBoard(boardInput);
-		return null;
+		return anniversaryservice.getAnniverSaryList();
 	}
 
 }

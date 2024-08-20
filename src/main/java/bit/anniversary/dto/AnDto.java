@@ -7,8 +7,10 @@ import bit.board.dto.BoardDto;
 import bit.board.dto.BoardReqDto;
 import bit.board.entity.Board;
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
+@Getter
 public class AnDto {
 
 	private final Long id;
