@@ -15,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class KaKaoLoginServiceImpl implements OAuthService {
 
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public String getToken(String code, String clientId, String redirectUri, String clientSecret)
             throws JsonProcessingException {
@@ -29,14 +32,11 @@ public class KaKaoLoginServiceImpl implements OAuthService {
         httpBody.add("client_secret", clientSecret);
 
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(httpBody, headers);
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(
                 "https://kauth.kakao.com/oauth/token", httpEntity, String.class
         );
 
-        ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(response.getBody());
-
         return jsonNode.get("access_token").asText();
     }
 
@@ -47,7 +47,6 @@ public class KaKaoLoginServiceImpl implements OAuthService {
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
-        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(
                 "https://kapi.kakao.com/v2/user/me", httpEntity, String.class
         );
