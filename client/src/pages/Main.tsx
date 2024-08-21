@@ -50,7 +50,7 @@ const Main = () => {
     return (
         <MainContainer>
             <Sidebar/>
-            <Content isSidebarOpen={isSidebarOpen}>
+            <Content open={isSidebarOpen}>
                 <header className="main-header">
                     <h1>우리의 디데이</h1>
                 </header>
@@ -66,13 +66,13 @@ const MainContainer = styled.div`
     display: flex;
 `;
 
-const Content = styled.div<{ isSidebarOpen: boolean }>`
+const Content = styled.div<{ open: boolean }>`
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: ${({isSidebarOpen}) => (isSidebarOpen ? "200px" : "0")};
+    margin-left: ${({open}) => (open ? "200px" : "0")};
     transition: margin-left 0.3s;
 `;
 

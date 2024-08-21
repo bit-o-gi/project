@@ -31,7 +31,7 @@ public class KaKaoLoginController {
                 + "client_id=" + clientId
                 + "&redirect_uri=" + redirectUri
                 + "&response_type=code"
-                + "&scope=account_email";
+                + "&scope=account_email,profile_nickname";
     }
 
     @PostMapping("/kakao/token")

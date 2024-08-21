@@ -19,12 +19,27 @@ const Sidebar = () => {
             }
         })
             .then((res) => {
-                console.log(res);
+                console.log('logout', res);
             })
             .catch((err) => {
                 console.log(err);
             })
     };
+
+    const handleUnlink = () => {
+        axios.post('https://kapi.kakao.com/v1/user/unlink', {}, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((res) => {
+                console.log('unlink', res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    };
+
     return (
         <>
             <ToggleButton onClick={() => dispatch(toggleSidebar())}>
@@ -34,7 +49,7 @@ const Sidebar = () => {
                 <SidebarContainer>
                     <NavItem to="/">Home</NavItem>
                     <NavItem to="/login">Login</NavItem>
-                    <div onClick={() => handleLogOut()}>LogOut</div>
+                    <div onClick={() => handleUnlink()}>LogOut</div>
                     {/* Add more navigation items as needed */}
                 </SidebarContainer>
             )}
