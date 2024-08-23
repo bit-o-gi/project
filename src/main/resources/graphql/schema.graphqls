@@ -35,7 +35,7 @@ input Andto{
     content : String
 }
 
-type AnReqdto{
+type AnResdto{
     id : ID
     writetime : String
     updatetime : String
