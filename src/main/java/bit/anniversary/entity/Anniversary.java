@@ -2,6 +2,7 @@ package bit.anniversary.entity;
 
 import java.time.LocalDateTime;
 
+import lombok.Getter;
 import org.modelmapper.ModelMapper;
 
 import bit.anniversary.dto.AnDto;
@@ -13,6 +14,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Anniversary {
 
@@ -20,13 +22,15 @@ public class Anniversary {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String writetime;
+	private String writer;
 
 	private String title;
 
 	private String withpeople;
 
 	private String content;
+
+	private LocalDateTime antime;
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
@@ -35,7 +39,7 @@ public class Anniversary {
 	}
 
 	public void update(AnDto anDto) {
-		this.writetime = anDto.getWritetime();
+		this.writer = anDto.getWriter();
 		this.title = anDto.getTitle();
 		this.withpeople = anDto.getWithpeople();
 		this.content = anDto.getContent();

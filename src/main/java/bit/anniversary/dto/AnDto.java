@@ -9,19 +9,23 @@ import bit.board.entity.Board;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
+
 @Builder
 @Getter
 public class AnDto {
 
 	private final Long id;
 
-	private final String writetime;
+	private final String writer;
 
 	private final String title;
 
 	private final String withpeople;
 
 	private final String content;
+
+	private LocalDateTime antime;
 
 	private static ModelMapper modelMapper = new ModelMapper();
 

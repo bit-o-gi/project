@@ -5,11 +5,12 @@ plugins {
 }
 
 group = 'bitcampNC5'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0'
 //# Release Note
-//
-//
-//
+// V1.0.1
+// 
+// V1.0.0
+// 초기 상태 기념일 설정 CRUD
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
