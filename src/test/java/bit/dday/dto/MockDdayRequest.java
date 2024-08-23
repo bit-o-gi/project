@@ -1,7 +1,6 @@
 package bit.dday.dto;
 
 import bit.dday.domain.Dday;
-import bit.dday.domain.MockDday;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 

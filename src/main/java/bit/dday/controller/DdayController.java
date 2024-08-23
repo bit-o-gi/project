@@ -36,7 +36,7 @@ public class DdayController {
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public DdayResponse createDday(@Valid @RequestBody DdayRequest ddayRequest) {
-        Dday dday = ddayService.createDday(ddayRequest);
+        Dday dday = ddayService.createDday(ddayRequest.toCommand());
         return DdayResponse.from(dday);
     }
 
@@ -44,7 +44,7 @@ public class DdayController {
     @ResponseStatus(HttpStatus.OK)
     public DdayResponse updateDday(@PathVariable Long id,
                                    @Valid @RequestBody DdayRequest ddayRequest) {
-        Dday dday = ddayService.updateDday(id, ddayRequest);
+        Dday dday = ddayService.updateDday(id, ddayRequest.toCommand());
         return DdayResponse.from(dday);
     }
 

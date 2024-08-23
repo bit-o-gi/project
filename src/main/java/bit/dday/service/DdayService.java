@@ -1,7 +1,7 @@
 package bit.dday.service;
 
 import bit.dday.domain.Dday;
-import bit.dday.dto.DdayRequest;
+import bit.dday.dto.DdayCommand;
 import bit.dday.exception.DdayException.DdayNotFoundException;
 import bit.dday.repository.DdayRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +17,18 @@ public class DdayService {
         return ddayRepository.findById(id).orElseThrow(DdayNotFoundException::new);
     }
 
-    public Dday createDday(DdayRequest ddayRequest) {
-        Dday ddayInput = ddayRequest.toEntity();
-        return ddayRepository.save(ddayInput);
+    public Dday createDday(DdayCommand command) {
+        Dday dday = Dday.builder()
+                .userId(command.userId)
+                .title(command.title)
+                .targetDate(command.targetDate)
+                .build();
+        return ddayRepository.save(dday);
     }
 
-    public Dday updateDday(Long id, DdayRequest ddayRequest) {
+    public Dday updateDday(Long id, DdayCommand ddayCommand) {
         Dday dday = ddayRepository.findById(id).orElseThrow(DdayNotFoundException::new);
-        dday.update(ddayRequest);
+        dday.update(ddayCommand);
         return ddayRepository.save(dday);
     }
 

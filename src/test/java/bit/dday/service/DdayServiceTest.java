@@ -50,7 +50,7 @@ public class DdayServiceTest {
         when(ddayRepository.save(any())).thenReturn(dday);
 
         // when
-        Dday newDday = ddayService.createDday(ddayRequest);
+        Dday newDday = ddayService.createDday(ddayRequest.toCommand());
 
         // then
         assertThat(newDday).usingRecursiveComparison().isEqualTo(dday);
@@ -67,7 +67,7 @@ public class DdayServiceTest {
         when(ddayRepository.save(any())).thenReturn(dday2);
 
         // when
-        Dday newDday = ddayService.updateDday(dday1.getId(), ddayRequest);
+        Dday newDday = ddayService.updateDday(dday1.getId(), ddayRequest.toCommand());
 
         // then
         assertThat(newDday)

@@ -1,6 +1,6 @@
 package bit.dday.domain;
 
-import bit.dday.dto.DdayRequest;
+import bit.dday.dto.DdayCommand;
 import bit.schedule.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,9 +33,9 @@ public class Dday extends BaseEntity {
         this.targetDate = targetDate;
     }
 
-    public void update(DdayRequest ddayRequest) {
-        this.userId = ddayRequest.getUserId();
-        this.title = ddayRequest.getTitle();
-        this.targetDate = ddayRequest.getTargetDate();
+    public void update(DdayCommand ddayCommand) {
+        this.userId = ddayCommand.userId;
+        this.title = ddayCommand.title;
+        this.targetDate = ddayCommand.targetDate;
     }
 }
