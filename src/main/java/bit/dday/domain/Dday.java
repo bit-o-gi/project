@@ -19,11 +19,12 @@ public class Dday extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String userId;
-
+    /* TODO
+        userId는 이후 couple 객체로 대체
+        private Couple couple;
+    */
     private String title;
-
     private LocalDate targetDate;
 
     @Builder
