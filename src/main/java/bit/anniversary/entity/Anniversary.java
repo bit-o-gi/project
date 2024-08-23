@@ -18,32 +18,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Anniversary {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String writer;
+    private String writer;
 
-	private String title;
+    private String title;
 
-	private String withpeople;
+    private String withpeople;
 
-	private String content;
+    private String content;
 
-	private LocalDateTime antime;
+    private LocalDateTime antime;
 
-	private static ModelMapper modelMapper = new ModelMapper();
+    private static ModelMapper modelMapper = new ModelMapper();
 
-	public AnDto creatAnniversary() {
-		return modelMapper.map(this, AnDto.class);
-	}
+    public AnDto creatAnniversary() {
+        return modelMapper.map(this, AnDto.class);
+    }
 
-	public void update(AnDto anDto) {
-		this.writer = anDto.getWriter();
-		this.title = anDto.getTitle();
-		this.withpeople = anDto.getWithpeople();
-		this.content = anDto.getContent();
-	}
+    public void update(AnDto anDto) {
+        this.writer = anDto.getWriter();
+        this.title = anDto.getTitle();
+        this.withpeople = anDto.getWithpeople();
+        this.content = anDto.getContent();
+    }
 
 }
 

@@ -3,9 +3,6 @@ package bit.anniversary.dto;
 import org.modelmapper.ModelMapper;
 
 import bit.anniversary.entity.Anniversary;
-import bit.board.dto.BoardDto;
-import bit.board.dto.BoardReqDto;
-import bit.board.entity.Board;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -33,8 +30,8 @@ public class AnDto {
 		return modelMapper.map(this, Anniversary.class);
 	}
 
-	public AnReqDto createAnReqDto() {
-		return modelMapper.map(this, AnReqDto.class);
+	public AnResDto createAnReqDto() {
+		return modelMapper.map(this, AnResDto.class);
 	}
 
 	public static AnDto of(Anniversary anniversary) {

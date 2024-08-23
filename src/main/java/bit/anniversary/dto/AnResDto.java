@@ -2,12 +2,10 @@ package bit.anniversary.dto;
 
 import org.modelmapper.ModelMapper;
 
-import bit.board.dto.BoardDto;
-import bit.board.dto.BoardReqDto;
 import lombok.Builder;
 
 @Builder
-public class AnReqDto {
+public class AnResDto {
 
 	private final Long id;
 
@@ -21,8 +19,8 @@ public class AnReqDto {
 
 	private static ModelMapper modelMapper = new ModelMapper();
 
-	public static AnReqDto of(AnDto anDto) {
-		return modelMapper.map(anDto, AnReqDto.class);
+	public static AnResDto of(AnDto anDto) {
+		return modelMapper.map(anDto, AnResDto.class);
 	}
 
 }

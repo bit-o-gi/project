@@ -8,7 +8,7 @@ group = 'bitcampNC5'
 version = '1.0.0'
 //# Release Note
 // V1.0.1
-// 
+//
 // V1.0.0
 // 초기 상태 기념일 설정 CRUD
 java {
@@ -30,10 +30,10 @@ repositories {
 dependencies {
     // GraphQL
     implementation 'org.springframework.boot:spring-boot-starter-graphql'
-    
+
     // MySQL
     runtimeOnly 'com.mysql:mysql-connector-j'
-    
+
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
