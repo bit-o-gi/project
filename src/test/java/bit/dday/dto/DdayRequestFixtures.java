@@ -4,9 +4,9 @@ import bit.dday.domain.Dday;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 
-public class MockDdayRequest {
+public class DdayRequestFixtures {
 
-    public static DdayRequest mockWith(Dday dday) throws Exception {
+    public static DdayRequest from(Dday dday) throws Exception {
         return of(dday.getUserId(), dday.getTitle(), dday.getTargetDate());
     }
 

@@ -6,9 +6,9 @@ import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.when;
 
 import bit.dday.domain.Dday;
-import bit.dday.domain.MockDday;
+import bit.dday.domain.DdayFixtures;
 import bit.dday.dto.DdayRequest;
-import bit.dday.dto.MockDdayRequest;
+import bit.dday.dto.DdayRequestFixtures;
 import bit.dday.repository.DdayRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +31,7 @@ public class DdayServiceTest {
     @Test
     void getDdaySuccessTest() throws Exception {
         // given
-        Dday mockDday = MockDday.mock1();
+        Dday mockDday = DdayFixtures.initialDday();
         when(ddayRepository.findById(mockDday.getId())).thenReturn(Optional.of(mockDday));
 
         // when
@@ -45,8 +45,8 @@ public class DdayServiceTest {
     @Test
     void createDdaySuccessTest() throws Exception {
         //given
-        Dday dday = MockDday.mock1();
-        DdayRequest ddayRequest = MockDdayRequest.mockWith(dday);
+        Dday dday = DdayFixtures.initialDday();
+        DdayRequest ddayRequest = DdayRequestFixtures.from(dday);
         when(ddayRepository.save(any())).thenReturn(dday);
 
         // when
@@ -60,9 +60,9 @@ public class DdayServiceTest {
     @Test
     void updateDdaySuccessTest() throws Exception {
         // given
-        Dday dday1 = MockDday.mock1();
-        Dday dday2 = MockDday.mock2();
-        DdayRequest ddayRequest = MockDdayRequest.mockWith(dday2);
+        Dday dday1 = DdayFixtures.initialDday();
+        Dday dday2 = DdayFixtures.newDday();
+        DdayRequest ddayRequest = DdayRequestFixtures.from(dday2);
         when(ddayRepository.findById(any())).thenReturn(Optional.of(dday1));
         when(ddayRepository.save(any())).thenReturn(dday2);
 
