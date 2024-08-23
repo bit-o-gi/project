@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class anController {
+public class AnController {
 
 	private final AnService anniversaryservice;
 
