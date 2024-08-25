@@ -37,7 +37,6 @@ public class BoardController {
 
 	@QueryMapping
 	public BoardReqDto getBoard(@Argument Long id) {
-		System.out.println("GetBoard");
 		BoardDto boardDto = new BoardDto();
 		boardDto.setId(id);
 		return BoardReqDto.of(boardService.GetBoardService(boardDto));
