@@ -1,5 +1,6 @@
 package bit.user.dto;
 
+import bit.user.oauth.kakao.domain.KakaoUserInfo;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -23,5 +24,13 @@ public class UserDto {
         this.nickName = nickName;
         this.gender = gender;
         this.platform = platform;
+    }
+
+    public static UserDto fromKakaoUser(KakaoUserInfo info) {
+        return UserDto.builder()
+                .email(info.getEmail())
+                .nickName(info.getNickname())
+                .platform("kakao")
+                .build();
     }
 }

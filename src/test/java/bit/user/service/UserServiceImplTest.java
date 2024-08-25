@@ -58,7 +58,7 @@ class UserServiceImplTest {
     @Test
     void getByIdTestThrowException() {
         // given
-        Long notExistsId = 325L;
+        long notExistsId = 325L;
 
         // when // then
         assertThatThrownBy(() -> userService.getById(notExistsId)).isInstanceOf(IllegalArgumentException.class)

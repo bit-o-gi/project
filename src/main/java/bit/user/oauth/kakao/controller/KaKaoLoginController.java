@@ -4,6 +4,8 @@ import bit.user.oauth.port.OAuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +43,7 @@ public class KaKaoLoginController {
     }
 
     @PostMapping("/kakao/access")
-    public String postGetUserInfo(@RequestBody String accessToken) throws JsonProcessingException {
+    public HttpStatus postGetUserInfo(@RequestBody String accessToken) throws JsonProcessingException {
         return oAuthService.getUserInfo(accessToken);
     }
 }
