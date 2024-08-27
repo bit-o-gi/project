@@ -23,6 +23,6 @@ public class KakaoUserInfo {
                 .nickname(properties.get("nickname").asText())
                 .build();
     }
-    
+
 
 }

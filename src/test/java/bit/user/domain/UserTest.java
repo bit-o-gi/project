@@ -19,6 +19,7 @@ class UserTest {
                 .nickName("AIJoBumSuk")
                 .gender("Male")
                 .platform("kakao")
+                .registerDate(LocalDateTime.of(2024, 8, 27, 13, 5, 12))
                 .build();
 
         // when
@@ -29,12 +30,14 @@ class UserTest {
                 "email",
                 "nickName",
                 "gender",
-                "platform"
+                "platform",
+                "registerDate"
         ).containsExactly(
                 "pjhwork97@gmail.com",
                 "AIJoBumSuk",
                 "Male",
-                "kakao"
+                "kakao",
+                LocalDateTime.of(2024, 8, 27, 13, 5, 12)
         );
     }
 

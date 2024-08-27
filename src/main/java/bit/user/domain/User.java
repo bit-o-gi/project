@@ -30,6 +30,7 @@ public class User {
                 .nickName(userDto.getNickName())
                 .gender(userDto.getGender())
                 .platform(userDto.getPlatform())
+                .registerDate(userDto.getRegisterDate())
                 .build();
     }
 }

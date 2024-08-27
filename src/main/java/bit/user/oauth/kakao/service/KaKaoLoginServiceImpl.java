@@ -58,7 +58,7 @@ public class KaKaoLoginServiceImpl implements OAuthService {
                 "https://kapi.kakao.com/v2/user/me", httpEntity, String.class
         );
 
-        if (response.getStatusCode() != HttpStatus.OK) {
+        if (response.getStatusCode() == HttpStatus.OK) {
             JsonNode jsonNode = objectMapper.readTree(response.getBody());
             userService.create(UserDto.fromKakaoUser(KakaoUserInfo.of(jsonNode)));
             return HttpStatus.OK;
