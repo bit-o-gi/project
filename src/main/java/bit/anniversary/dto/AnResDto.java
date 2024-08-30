@@ -1,23 +1,33 @@
 package bit.anniversary.dto;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import lombok.Builder;
+import lombok.Getter;
 
 @Builder
+@Component
+@Getter
 public class AnResDto {
 
-	private final Long id;
+	private Long id;
 
-	private final String writetime;
+	private String writetime;
 
-	private final String title;
+	private String title;
 
-	private final String withpeople;
+	private String withpeople;
 
-	private final String content;
+	private String content;
 
-	private static ModelMapper modelMapper = new ModelMapper();
+	private static ModelMapper modelMapper;
+
+	@Autowired
+	public AnResDto(ModelMapper modelMapper) {
+		AnResDto.modelMapper = modelMapper; // 수정된 부분
+	}
 
 	public static AnResDto of(AnDto anDto) {
 		return modelMapper.map(anDto, AnResDto.class);

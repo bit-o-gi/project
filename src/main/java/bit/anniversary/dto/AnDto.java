@@ -1,6 +1,8 @@
 package bit.anniversary.dto;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import bit.anniversary.entity.Anniversary;
 import lombok.Builder;
@@ -10,22 +12,27 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
+@Component
 public class AnDto {
 
-	private final Long id;
+	private Long id;
 
-	private final String writer;
+	private String writer;
 
-	private final String title;
+	private String title;
 
-	private final String withpeople;
+	private String withpeople;
 
-	private final String content;
+	private String content;
 
 	private LocalDateTime antime;
 
-	private static ModelMapper modelMapper = new ModelMapper();
+	private static ModelMapper modelMapper;
 
+	@Autowired
+	public AnDto(ModelMapper modelMapper) {
+		AnDto.modelMapper = modelMapper; // 수정된 부분
+	}
 	public Anniversary creatAnniversary() {
 		return modelMapper.map(this, Anniversary.class);
 	}
