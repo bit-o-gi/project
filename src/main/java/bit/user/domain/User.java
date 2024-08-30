@@ -1,6 +1,7 @@
 package bit.user.domain;
 
 import bit.user.dto.UserDto;
+import bit.user.oauth.OauthPlatformStatus;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,11 +12,12 @@ public class User {
     private final String email;
     private final String nickName;
     private final String gender;
-    private final String platform;
+    private final OauthPlatformStatus platform;
     private final LocalDateTime registerDate;
 
     @Builder
-    public User(Long id, String email, String nickName, String gender, String platform, LocalDateTime registerDate) {
+    public User(Long id, String email, String nickName, String gender, OauthPlatformStatus platform,
+                LocalDateTime registerDate) {
         this.id = id;
         this.email = email;
         this.nickName = nickName;

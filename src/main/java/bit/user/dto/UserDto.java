@@ -1,5 +1,6 @@
 package bit.user.dto;
 
+import bit.user.oauth.OauthPlatformStatus;
 import bit.user.oauth.kakao.domain.KakaoUserInfo;
 import java.time.LocalDateTime;
 import lombok.Builder;
@@ -15,12 +16,13 @@ public class UserDto {
 
     private final String gender;
 
-    private final String platform;
+    private final OauthPlatformStatus platform;
 
     private final LocalDateTime registerDate;
 
     @Builder
-    public UserDto(Long id, String email, String nickName, String gender, String platform, LocalDateTime registerDate) {
+    public UserDto(Long id, String email, String nickName, String gender, OauthPlatformStatus platform,
+                   LocalDateTime registerDate) {
         this.id = id;
         this.email = email;
         this.nickName = nickName;
@@ -33,7 +35,7 @@ public class UserDto {
         return UserDto.builder()
                 .email(info.getEmail())
                 .nickName(info.getNickname())
-                .platform("kakao")
+                .platform(OauthPlatformStatus.KAKAO)
                 .registerDate(info.getConnectedAt())
                 .build();
     }
