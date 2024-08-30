@@ -4,6 +4,8 @@ import bit.couple.dto.CoupleRequest;
 import bit.couple.service.CoupleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,5 +26,17 @@ public class CoupleController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createCouple(@RequestBody CoupleRequest coupleRequest) {
         coupleService.createCouple(coupleRequest.toCommand());
+    }
+
+    @PutMapping("/{coupleId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void approveCouple(@PathVariable Long coupleId) {
+        coupleService.approveCouple(coupleId);
+    }
+
+    @DeleteMapping("/{coupleId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteCouple(@PathVariable Long coupleId) {
+        coupleService.deleteCouple(coupleId);
     }
 }

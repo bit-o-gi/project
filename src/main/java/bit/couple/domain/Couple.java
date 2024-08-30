@@ -41,4 +41,8 @@ public class Couple extends BaseEntity {
         couple.status = CoupleStatus.CREATING;
         return couple;
     }
+
+    public void approve() {
+        this.status = CoupleStatus.APPROVED;
+    }
 }
