@@ -4,3 +4,9 @@
 매뉴얼 및 컨벤션 : https://discovered-burglar-4f0.notion.site/786f1c772655498eb6e688106cf006a1?v=3b861bd5598e47169d32286af204ae8f&pvs=4
 
 Jira 링크 : https://bitsidepjt.atlassian.net/jira/software/projects/BOP/boards/1
+
+마이페이지 기능
+: 프로필 사진 설정
+: 별명 수정
+: 위시리스트 공유
+: 유형테스트를 통한 해시태그(?) 설정, 변경
