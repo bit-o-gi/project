@@ -54,6 +54,9 @@ const Main = () => {
                 <header className="main-header">
                     <h1>우리의 디데이</h1>
                 </header>
+                <h1 className="text-3xl font-bold underline">
+                    hi
+                </h1>
                 <section className="dday-countdown">
                     <h3>D-100</h3>
                 </section>
