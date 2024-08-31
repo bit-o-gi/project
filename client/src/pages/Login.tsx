@@ -27,7 +27,7 @@ function Login() {
 
     return (
         <div className="Login">
-            <h2>Login</h2>
+            <h2>로그인을 진행해 주세요</h2>
             <ImgButton src={kakaoLoginImage} alt="kakaoLogin" onClick={handleKakaoLoginBtn}/>
             {isPopupOpen && (
                 <Popup>
