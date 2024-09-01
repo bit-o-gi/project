@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 import static bit.schedule_new.util.NewScheduleFixture.getNewSchedule;
@@ -52,7 +53,7 @@ class NewScheduleServiceImplTest {
         //When
         NewScheduleResponse result = scheduleService.getSchedule(1L);
         //Then
-        assertThat(result).isEqualTo(new NewScheduleResponse(newSchedule));
+        assertThat(result).isEqualTo(new NewScheduleResponse(Objects.requireNonNull(newSchedule)));
     }
 
     @DisplayName("저장시 스케줄의 시작시간이 종료시간보다 늦으면 에러를 발생시킨다.")
