@@ -38,4 +38,13 @@ public class NewScheduleServiceImpl implements NewScheduleService {
         newScheduleRepository.save(schedule);
         return new NewScheduleResponse(schedule);
     }
+
+    @Override
+    public NewScheduleResponse updateSchedule(Long scheduleId, NewScheduleRequest newScheduleRequest) {
+        NewSchedule schedule = newScheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new EntityNotFoundException("스케줄을 찾지 못했습니다."));
+        schedule.update(newScheduleRequest);
+        newScheduleRepository.save(schedule);
+        return new NewScheduleResponse(schedule);
+    }
 }

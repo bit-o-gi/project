@@ -11,4 +11,6 @@ public interface NewScheduleService {
     List<NewScheduleResponse> getScheduleByUserId(Long userId);
 
     NewScheduleResponse saveSchedule(NewScheduleRequest newScheduleRequest);
+
+    NewScheduleResponse updateSchedule(Long scheduleId, NewScheduleRequest newScheduleRequest);
 }

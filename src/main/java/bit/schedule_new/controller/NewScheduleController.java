@@ -28,4 +28,9 @@ public class NewScheduleController {
     public NewScheduleResponse createSchedule(@RequestBody NewScheduleRequest newScheduleRequest) {
         return newScheduleService.saveSchedule(newScheduleRequest);
     }
+
+    @PatchMapping("/{scheduleId}")
+    public NewScheduleResponse updateSchedule(@PathVariable Long scheduleId, @RequestBody NewScheduleRequest newScheduleRequest) {
+        return newScheduleService.updateSchedule(scheduleId, newScheduleRequest);
+    }
 }
