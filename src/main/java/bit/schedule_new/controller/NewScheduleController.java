@@ -3,6 +3,7 @@ package bit.schedule_new.controller;
 import bit.schedule_new.dto.NewScheduleRequest;
 import bit.schedule_new.dto.NewScheduleResponse;
 import bit.schedule_new.service.NewScheduleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +26,17 @@ public class NewScheduleController {
     }
 
     @PostMapping("")
-    public NewScheduleResponse createSchedule(@RequestBody NewScheduleRequest newScheduleRequest) {
+    public NewScheduleResponse createSchedule(@Valid @RequestBody NewScheduleRequest newScheduleRequest) {
         return newScheduleService.saveSchedule(newScheduleRequest);
     }
 
     @PatchMapping("/{scheduleId}")
-    public NewScheduleResponse updateSchedule(@PathVariable Long scheduleId, @RequestBody NewScheduleRequest newScheduleRequest) {
+    public NewScheduleResponse updateSchedule(@PathVariable Long scheduleId, @Valid @RequestBody NewScheduleRequest newScheduleRequest) {
         return newScheduleService.updateSchedule(scheduleId, newScheduleRequest);
+    }
+
+    @DeleteMapping("/{scheduleId}")
+    public NewScheduleResponse deleteSchedule(@PathVariable Long scheduleId) {
+        return newScheduleService.deleteSchedule(scheduleId);
     }
 }

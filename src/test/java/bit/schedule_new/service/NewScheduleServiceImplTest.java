@@ -15,6 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static bit.schedule_new.util.NewScheduleFixture.getNewSchedule;
+import static bit.schedule_new.util.NewScheduleRequestFixture.getNewScheduleRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
@@ -27,26 +29,6 @@ class NewScheduleServiceImplTest {
 
     @InjectMocks
     private NewScheduleServiceImpl scheduleService;
-
-    private static NewSchedule getNewSchedule(LocalDateTime start, LocalDateTime end) {
-        return NewSchedule.builder()
-                .userId(1L)
-                .title("title")
-                .content("content")
-                .startDateTime(start)
-                .endDateTime(end)
-                .build();
-    }
-
-    private static NewScheduleRequest getNewScheduleRequest(LocalDateTime start, LocalDateTime end) {
-        return NewScheduleRequest.builder()
-                .userId(1L)
-                .title("title")
-                .content("content")
-                .startDateTime(start)
-                .endDateTime(end)
-                .build();
-    }
 
     @DisplayName("스케줄 ID로 스케줄을 찾지 못한 경우 에러를 발생시킨다.")
     @Test
@@ -100,12 +82,23 @@ class NewScheduleServiceImplTest {
 
     @DisplayName("업데이트시 스케줄이 존재하지 않으면 에러를 발생시킨다.")
     @Test
-    void updateScheduleIs() {
+    void updateScheduleScheduleNotFoundException() {
         //Given
         NewScheduleRequest newScheduleRequest = getNewScheduleRequest(LocalDateTime.now(), LocalDateTime.now().plusHours(1));
         //When
         //Then
         assertThatThrownBy(() -> scheduleService.updateSchedule(0L, newScheduleRequest))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("스케줄을 찾지 못했습니다.");
+    }
+
+    @DisplayName("삭제시 스케줄이 존재하지 않으면 에러를 발생시킨다.")
+    @Test
+    void deleteScheduleScheduleNotFoundException() {
+        //Given
+        //When
+        //Then
+        assertThatThrownBy(() -> scheduleService.deleteSchedule(0L))
                 .isInstanceOf(EntityNotFoundException.class)
                 .hasMessageContaining("스케줄을 찾지 못했습니다.");
     }

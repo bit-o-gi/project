@@ -13,4 +13,6 @@ public interface NewScheduleService {
     NewScheduleResponse saveSchedule(NewScheduleRequest newScheduleRequest);
 
     NewScheduleResponse updateSchedule(Long scheduleId, NewScheduleRequest newScheduleRequest);
+
+    NewScheduleResponse deleteSchedule(Long scheduleId);
 }
