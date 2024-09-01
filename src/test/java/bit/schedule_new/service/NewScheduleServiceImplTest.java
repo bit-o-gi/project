@@ -73,7 +73,7 @@ class NewScheduleServiceImplTest {
         assertThat(result).isEqualTo(new NewScheduleResponse(newSchedule));
     }
 
-    @DisplayName("저장시 스케줄의 시작시간이 종료시간보다 느리면 에러를 발생시킨다.")
+    @DisplayName("저장시 스케줄의 시작시간이 종료시간보다 늦으면 에러를 발생시킨다.")
     @Test
     void saveValidateStartEndTime() {
         //Given
@@ -85,4 +85,28 @@ class NewScheduleServiceImplTest {
                 .hasMessageContaining("시작 시간은 종료 시간보다 늦을 수 없습니다.");
     }
 
+    @DisplayName("업데이트시 스케줄의 시작시간이 종료시간보다 늦으면 에러를 발생시킨다.")
+    @Test
+    void updateValidateStartEndTime() {
+        //Given
+        NewScheduleRequest newScheduleRequest = getNewScheduleRequest(LocalDateTime.now(), LocalDateTime.now().minusHours(1));
+        when(newScheduleRepository.findById(0L)).thenReturn(Optional.ofNullable(getNewSchedule(LocalDateTime.now(), LocalDateTime.now().plusHours(1))));
+        //When
+        //Then
+        assertThatThrownBy(() -> scheduleService.updateSchedule(0L, newScheduleRequest))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContaining("시작 시간은 종료 시간보다 늦을 수 없습니다.");
+    }
+
+    @DisplayName("업데이트시 스케줄이 존재하지 않으면 에러를 발생시킨다.")
+    @Test
+    void updateScheduleIs() {
+        //Given
+        NewScheduleRequest newScheduleRequest = getNewScheduleRequest(LocalDateTime.now(), LocalDateTime.now().plusHours(1));
+        //When
+        //Then
+        assertThatThrownBy(() -> scheduleService.updateSchedule(0L, newScheduleRequest))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessageContaining("스케줄을 찾지 못했습니다.");
+    }
 }

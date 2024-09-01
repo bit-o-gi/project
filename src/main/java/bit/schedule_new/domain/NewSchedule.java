@@ -1,6 +1,7 @@
 package bit.schedule_new.domain;
 
 import bit.schedule.domain.BaseEntity;
+import bit.schedule_new.dto.NewScheduleRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,6 +39,15 @@ public class NewSchedule extends BaseEntity {
         this.content = Objects.requireNonNull(content);
         this.startDateTime = Objects.requireNonNull(startDateTime);
         this.endDateTime = Objects.requireNonNull(endDateTime);
+    }
+
+    public void update(NewScheduleRequest newScheduleRequest) {
+        checkStartEndDateTime(newScheduleRequest.getStartDateTime(), newScheduleRequest.getEndDateTime());
+        this.userId = Objects.requireNonNull(newScheduleRequest.getUserId());
+        this.title = Objects.requireNonNull(newScheduleRequest.getTitle());
+        this.content = Objects.requireNonNull(newScheduleRequest.getContent());
+        this.startDateTime = Objects.requireNonNull(newScheduleRequest.getStartDateTime());
+        this.endDateTime = Objects.requireNonNull(newScheduleRequest.getEndDateTime());
     }
 
     private void checkStartEndDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime) {
