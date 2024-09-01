@@ -7,10 +7,12 @@ import bit.schedule_new.repository.NewScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class NewScheduleServiceImpl implements NewScheduleService {
 
@@ -18,9 +20,7 @@ public class NewScheduleServiceImpl implements NewScheduleService {
 
     @Override
     public NewScheduleResponse getSchedule(Long scheduleId) {
-        var schedule = newScheduleRepository
-                .findById(scheduleId)
-                .orElseThrow(() -> new EntityNotFoundException("스케줄을 찾지 못했습니다."));
+        NewSchedule schedule = findScheduleById(scheduleId);
         return new NewScheduleResponse(schedule);
     }
 
@@ -32,6 +32,7 @@ public class NewScheduleServiceImpl implements NewScheduleService {
                 .toList();
     }
 
+    @Transactional
     @Override
     public NewScheduleResponse saveSchedule(NewScheduleRequest newScheduleRequest) {
         NewSchedule schedule = newScheduleRequest.toEntity();
@@ -39,12 +40,25 @@ public class NewScheduleServiceImpl implements NewScheduleService {
         return new NewScheduleResponse(schedule);
     }
 
+    @Transactional
     @Override
     public NewScheduleResponse updateSchedule(Long scheduleId, NewScheduleRequest newScheduleRequest) {
-        NewSchedule schedule = newScheduleRepository.findById(scheduleId)
-                .orElseThrow(() -> new EntityNotFoundException("스케줄을 찾지 못했습니다."));
+        NewSchedule schedule = findScheduleById(scheduleId);
         schedule.update(newScheduleRequest);
         newScheduleRepository.save(schedule);
         return new NewScheduleResponse(schedule);
+    }
+
+    @Transactional
+    @Override
+    public NewScheduleResponse deleteSchedule(Long scheduleId) {
+        NewSchedule schedule = findScheduleById(scheduleId);
+        newScheduleRepository.deleteById(scheduleId);
+        return new NewScheduleResponse(schedule);
+    }
+
+    private NewSchedule findScheduleById(Long scheduleId) {
+        return newScheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new EntityNotFoundException("스케줄을 찾지 못했습니다."));
     }
 }
