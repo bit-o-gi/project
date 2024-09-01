@@ -1,5 +1,7 @@
 package bit.schedule_new.service;
 
+import bit.schedule_new.domain.NewSchedule;
+import bit.schedule_new.dto.NewScheduleRequest;
 import bit.schedule_new.dto.NewScheduleResponse;
 import bit.schedule_new.repository.NewScheduleRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,5 +30,12 @@ public class NewScheduleServiceImpl implements NewScheduleService {
                 .stream()
                 .map(NewScheduleResponse::new)
                 .toList();
+    }
+
+    @Override
+    public NewScheduleResponse saveSchedule(NewScheduleRequest newScheduleRequest) {
+        NewSchedule schedule = newScheduleRequest.toEntity();
+        newScheduleRepository.save(schedule);
+        return new NewScheduleResponse(schedule);
     }
 }

@@ -1,12 +1,10 @@
 package bit.schedule_new.controller;
 
+import bit.schedule_new.dto.NewScheduleRequest;
 import bit.schedule_new.dto.NewScheduleResponse;
 import bit.schedule_new.service.NewScheduleService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,13 +14,18 @@ import java.util.List;
 public class NewScheduleController {
     private final NewScheduleService newScheduleService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{scheduleId}")
     public NewScheduleResponse getSchedule(@PathVariable Long scheduleId) {
         return newScheduleService.getSchedule(scheduleId);
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/user/{userId}")
     public List<NewScheduleResponse> getScheduleByUser(@PathVariable Long userId) {
         return newScheduleService.getScheduleByUserId(userId);
+    }
+
+    @PostMapping("")
+    public NewScheduleResponse createSchedule(@RequestBody NewScheduleRequest newScheduleRequest) {
+        return newScheduleService.saveSchedule(newScheduleRequest);
     }
 }
