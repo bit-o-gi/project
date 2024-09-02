@@ -1,14 +1,16 @@
 import React, {useEffect} from "react";
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store';
 import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
+import {setAccessToken} from "../store/reducer/reducerUser";
 
 const Main = () => {
     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isOpen);
     const location = useLocation();
+    const dispatch = useDispatch();
     const queryParams = new URLSearchParams(location.search);
     const navigate = useNavigate();
 
@@ -20,7 +22,7 @@ const Main = () => {
 
             axios.post('http://localhost:8080/oauth/kakao/token', params)
                 .then((res) => {
-                    console.log(res);
+                    dispatch(setAccessToken(res.data));
                     handleGetUserInfo(res.data);
                 })
                 .catch((err) => {
@@ -29,8 +31,8 @@ const Main = () => {
         }
     }, []);
 
-    const handleGetUserInfo = (at: string) => {
-        axios.post('http://localhost:8080/oauth/kakao/access', at,
+    const handleGetUserInfo = (accessToken: string) => {
+        axios.post('http://localhost:8080/oauth/kakao/access', accessToken,
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +50,7 @@ const Main = () => {
     return (
         <MainContainer>
             <Sidebar/>
-            <Content isSidebarOpen={isSidebarOpen}>
+            <Content open={isSidebarOpen}>
                 <header className="main-header">
                     <h1>우리의 디데이</h1>
                 </header>
@@ -64,13 +66,13 @@ const MainContainer = styled.div`
     display: flex;
 `;
 
-const Content = styled.div<{ isSidebarOpen: boolean }>`
+const Content = styled.div<{ open: boolean }>`
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-left: ${({isSidebarOpen}) => (isSidebarOpen ? "200px" : "0")};
+    margin-left: ${({open}) => (open ? "200px" : "0")};
     transition: margin-left 0.3s;
 `;
 

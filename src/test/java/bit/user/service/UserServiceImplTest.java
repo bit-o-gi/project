@@ -1,11 +1,13 @@
 package bit.user.service;
 
+import static bit.user.oauth.OauthPlatformStatus.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import bit.mock.FakeUserRepository;
 import bit.user.domain.User;
 import bit.user.dto.UserDto;
+import bit.user.oauth.OauthPlatformStatus;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +26,7 @@ class UserServiceImplTest {
                 .email("pjhwork97@gmail.com")
                 .nickName("MR_JO")
                 .gender("Male")
-                .platform("kakao")
+                .platform(KAKAO)
                 .registerDate(LocalDateTime.of(2021, 1, 1, 23, 22, 43))
                 .build()
         );
@@ -48,7 +50,7 @@ class UserServiceImplTest {
                 "pjhwork97@gmail.com",
                 "MR_JO",
                 "Male",
-                "kakao",
+                KAKAO,
                 LocalDateTime.of(2021, 1, 1, 23, 22, 43)
         );
     }
@@ -58,7 +60,7 @@ class UserServiceImplTest {
     @Test
     void getByIdTestThrowException() {
         // given
-        Long notExistsId = 325L;
+        long notExistsId = 325L;
 
         // when // then
         assertThatThrownBy(() -> userService.getById(notExistsId)).isInstanceOf(IllegalArgumentException.class)
@@ -73,7 +75,7 @@ class UserServiceImplTest {
                 .email("pjhwork97@gmail.com")
                 .nickName("MR_JO")
                 .gender("Male")
-                .platform("kakao")
+                .platform(KAKAO)
                 .build();
 
         // when
@@ -89,7 +91,7 @@ class UserServiceImplTest {
                         "pjhwork97@gmail.com",
                         "MR_JO",
                         "Male",
-                        "kakao");
+                        KAKAO);
     }
 
 }
