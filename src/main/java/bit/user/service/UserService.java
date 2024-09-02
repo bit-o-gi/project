@@ -9,4 +9,5 @@ public interface UserService {
 
     User create(UserDto userDto);
 
+    boolean findByEmail(String email);
 }

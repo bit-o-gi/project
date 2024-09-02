@@ -60,10 +60,16 @@ public class KaKaoLoginServiceImpl implements OAuthService {
 
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonNode jsonNode = objectMapper.readTree(response.getBody());
-            userService.create(UserDto.fromKakaoUser(KakaoUserInfo.of(jsonNode)));
+            createUserDomain(jsonNode);
             return HttpStatus.OK;
         }
 
         return HttpStatus.BAD_REQUEST;
+    }
+
+    private void createUserDomain(JsonNode jsonNode) {
+        if (!userService.findByEmail(KakaoUserInfo.of(jsonNode).getEmail())) {
+            userService.create(UserDto.fromKakaoUser(KakaoUserInfo.of(jsonNode)));
+        }
     }
 }
