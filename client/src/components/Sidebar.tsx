@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '../store';
 import {toggleSidebar} from '../store/reducer/reducerSidebar';
+import {FaBars, FaTimes} from 'react-icons/fa';
+import tw from "tailwind-styled-components";
 
 const Sidebar = () => {
     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isOpen);
@@ -10,22 +12,67 @@ const Sidebar = () => {
 
     return (
         <>
-            <button
-                onClick={() => dispatch(toggleSidebar())}
-                className="absolute top-1 left-2 z-10 bg-blue-500 text-white border-none p-2 cursor-pointer hover:bg-blue-700"
-            >
-                {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
-            </button>
+            <ToggleButton onClick={() => dispatch(toggleSidebar())}>
+                {isSidebarOpen ? <FaTimes/> : <FaBars/>}
+            </ToggleButton>
+            {isSidebarOpen && <Overlay onClick={() => dispatch(toggleSidebar())}/>}
             {isSidebarOpen && (
-                <div
-                    className="w-64 h-screen bg-gray-300 flex flex-col items-center pt-8 fixed left-0 top-0 transition-transform duration-300">
-                    <Link to="/" className="my-4 text-gray-700 text-xl no-underline hover:text-orange-500">
-                        Home
-                    </Link>
-                </div>
+                <SidebarContainer>
+                    <StyledLink to="/">Home</StyledLink>
+                    {/* Add more links or content here */}
+                </SidebarContainer>
             )}
         </>
     );
 };
+
+const ToggleButton = tw.button`
+    absolute
+    top-4
+    left-4
+    z-10
+    bg-blue-500
+    text-white
+    rounded-full
+    p-2
+    shadow-lg
+    hover:bg-blue-700
+    transition
+    duration-300
+`;
+
+const SidebarContainer = tw.div`
+    w-64
+    h-screen
+    bg-gray-800
+    text-white
+    flex
+    flex-col
+    items-center
+    pt-8
+    fixed
+    left-0
+    top-0
+    shadow-2xl
+    transition-transform
+    duration-300
+`;
+
+const StyledLink = tw(Link)`
+    my-4
+    text-xl
+    no-underline
+    hover:text-orange-500
+    transition
+    duration-300
+`;
+
+const Overlay = tw.div`
+    fixed
+    inset-0
+    bg-black
+    opacity-50
+    z-5
+`;
 
 export default Sidebar;
