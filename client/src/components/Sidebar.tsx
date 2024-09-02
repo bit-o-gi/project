@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import {Link} from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '../store';
@@ -11,58 +10,22 @@ const Sidebar = () => {
 
     return (
         <>
-            <ToggleButton onClick={() => dispatch(toggleSidebar())}>
+            <button
+                onClick={() => dispatch(toggleSidebar())}
+                className="absolute top-1 left-2 z-10 bg-blue-500 text-white border-none p-2 cursor-pointer hover:bg-blue-700"
+            >
                 {isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
-            </ToggleButton>
+            </button>
             {isSidebarOpen && (
-                <SidebarContainer>
-                    <NavItem to="/">Home</NavItem>
-                </SidebarContainer>
+                <div
+                    className="w-64 h-screen bg-gray-300 flex flex-col items-center pt-8 fixed left-0 top-0 transition-transform duration-300">
+                    <Link to="/" className="my-4 text-gray-700 text-xl no-underline hover:text-orange-500">
+                        Home
+                    </Link>
+                </div>
             )}
-
         </>
     );
 };
-
-const NavItem = styled(Link)`
-    margin: 15px 0;
-    text-decoration: none;
-    color: #444;
-    font-size: 1.4rem;
-
-    &:hover {
-        color: #ff4500;
-    }
-`;
-
-const SidebarContainer = styled.div`
-    width: 250px;
-    height: 100vh;
-    background-color: #e0e0e0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 2vh;
-    position: fixed;
-    left: 0;
-    top: 0;
-    transition: transform 0.3s;
-`;
-
-const ToggleButton = styled.button`
-    position: absolute;
-    top: 5px;
-    left: 10px;
-    z-index: 2;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #0056b3;
-    }
-`;
 
 export default Sidebar;
