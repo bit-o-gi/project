@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/oauth")
+@RequestMapping("/api/v1/oauth")
 public class KaKaoLoginController {
 
     private final OAuthService oAuthService;
