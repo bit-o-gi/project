@@ -1,8 +1,7 @@
 import React, {useEffect} from "react";
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
-import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../store';
+import {useDispatch} from 'react-redux';
 import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import {setAccessToken} from "../store/reducer/reducerUser";
@@ -20,8 +19,9 @@ const Main = () => {
             params.append('code', queryParams.get("code") || "");
             navigate('/');
 
-            axios.post('http://localhost:8080/oauth/kakao/token', params)
+            axios.post('/oauth/kakao/token', params)
                 .then((res) => {
+                    console.log('token', res.data);
                     dispatch(setAccessToken(res.data));
                     handleGetUserInfo(res.data);
                 })
@@ -32,14 +32,14 @@ const Main = () => {
     }, []);
 
     const handleGetUserInfo = (accessToken: string) => {
-        axios.post('http://localhost:8080/oauth/kakao/access', accessToken,
+        axios.post('/oauth/kakao/access', accessToken,
             {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
             .then((res) => {
-                console.log(res);
+                console.log('userInfo', res);
             })
             .catch((err) => {
                 console.log(err);
@@ -51,8 +51,8 @@ const Main = () => {
             <Sidebar/>
             <Content>
                 <Section>
-                    <Title>우리의 디데이</Title>
-                    <Countdown>D-100</Countdown>
+                    <Title>시작한지</Title>
+                    <Countdown>100일</Countdown>
                 </Section>
             </Content>
         </MainContainer>
