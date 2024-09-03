@@ -46,7 +46,7 @@ public class DdayServiceTest {
     void createDdaySuccessTest() throws Exception {
         //given
         Dday dday = DdayFixtures.initialDday();
-        DdayRequest ddayRequest = DdayRequestFixtures.from(dday);
+        DdayRequest ddayRequest = DdayRequestFixtures.of();
         when(ddayRepository.save(any())).thenReturn(dday);
 
         // when

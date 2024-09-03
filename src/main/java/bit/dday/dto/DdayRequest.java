@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 public class DdayRequest implements BaseRequest<Dday> {
-    private String userId;
+    private Long userId;
     private String title;
     private LocalDate targetDate;
 

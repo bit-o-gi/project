@@ -6,11 +6,7 @@ import java.time.LocalDate;
 
 public class DdayRequestFixtures {
 
-    public static DdayRequest from(Dday dday) throws Exception {
-        return of(dday.getUserId(), dday.getTitle(), dday.getTargetDate());
-    }
-
-    private static DdayRequest of(String userId, String title, LocalDate targetDate) throws Exception {
+    public static DdayRequest of(String userId, String title, LocalDate targetDate) throws Exception {
         Class clazz = Class.forName("bit.dday.dto.DdayRequest");
         DdayRequest ddayRequest = new DdayRequest();
 

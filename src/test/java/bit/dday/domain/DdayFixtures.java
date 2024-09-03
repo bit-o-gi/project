@@ -18,7 +18,7 @@ public class DdayFixtures {
 
     public static Dday of(Long id, String userId, String title, LocalDate targetDate) throws Exception {
         Dday dday = Dday.builder()
-                .userId(userId)
+                .couple()
                 .title(title)
                 .targetDate(targetDate)
                 .build();
