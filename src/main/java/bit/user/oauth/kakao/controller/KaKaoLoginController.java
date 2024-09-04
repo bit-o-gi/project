@@ -43,7 +43,7 @@ public class KaKaoLoginController {
     }
 
     @PostMapping("/kakao/access")
-    public HttpStatus postGetUserInfo(@RequestBody String accessToken) throws JsonProcessingException {
+    public String postGetUserInfo(@RequestBody String accessToken) throws JsonProcessingException {
         return oAuthService.getUserInfo(accessToken);
     }
 }

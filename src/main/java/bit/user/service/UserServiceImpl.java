@@ -16,6 +16,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
+
     public boolean findByEmail(String email) {
         return userRepository.findByEmail(email).isPresent();
     }

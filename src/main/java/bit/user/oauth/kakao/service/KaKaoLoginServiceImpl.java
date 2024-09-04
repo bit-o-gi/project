@@ -26,9 +26,7 @@ public class KaKaoLoginServiceImpl implements OAuthService {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public String getToken(String code, String clientId, String redirectUri, String clientSecret)
-            throws JsonProcessingException {
-
+    public String getToken(String code, String clientId, String redirectUri, String clientSecret) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         MultiValueMap<String, String> httpBody = new LinkedMultiValueMap<>();
@@ -43,12 +41,11 @@ public class KaKaoLoginServiceImpl implements OAuthService {
                 "https://kauth.kakao.com/oauth/token", httpEntity, String.class
         );
 
-        JsonNode jsonNode = objectMapper.readTree(response.getBody());
-        return jsonNode.get("access_token").asText();
+        return response.getBody();
     }
 
     @Override
-    public HttpStatus getUserInfo(String accessToken) throws JsonProcessingException {
+    public String getUserInfo(String accessToken) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
@@ -61,10 +58,9 @@ public class KaKaoLoginServiceImpl implements OAuthService {
         if (response.getStatusCode() == HttpStatus.OK) {
             JsonNode jsonNode = objectMapper.readTree(response.getBody());
             createUserDomain(jsonNode);
-            return HttpStatus.OK;
         }
 
-        return HttpStatus.BAD_REQUEST;
+        return response.getBody();
     }
 
     private void createUserDomain(JsonNode jsonNode) {
