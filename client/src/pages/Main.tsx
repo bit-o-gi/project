@@ -2,49 +2,10 @@ import React, {useEffect} from "react";
 import styled from "styled-components";
 import Sidebar from "../components/Sidebar";
 import {useDispatch} from 'react-redux';
-import axios from "axios";
-import {useLocation, useNavigate} from "react-router-dom";
 import {setAccessToken} from "../store/reducer/reducerUser";
 import tw from "tailwind-styled-components";
 
 const Main = () => {
-    const location = useLocation();
-    const dispatch = useDispatch();
-    const queryParams = new URLSearchParams(location.search);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (queryParams?.get("code")) {
-            const params = new URLSearchParams;
-            params.append('code', queryParams.get("code") || "");
-            navigate('/');
-
-            axios.post('/oauth/kakao/token', params)
-                .then((res) => {
-                    console.log('token', res.data);
-                    dispatch(setAccessToken(res.data));
-                    handleGetUserInfo(res.data);
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-        }
-    }, []);
-
-    const handleGetUserInfo = (accessToken: string) => {
-        axios.post('/oauth/kakao/access', accessToken,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then((res) => {
-                console.log('userInfo', res);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
 
     return (
         <MainContainer>
