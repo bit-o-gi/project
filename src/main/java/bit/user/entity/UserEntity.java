@@ -1,5 +1,6 @@
 package bit.user.entity;
 
+import bit.schedule.domain.BaseEntity;
 import bit.user.domain.User;
 import bit.user.oauth.OauthPlatformStatus;
 import jakarta.persistence.Column;
@@ -14,7 +15,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

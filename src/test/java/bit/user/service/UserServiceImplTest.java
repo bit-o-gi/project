@@ -55,7 +55,6 @@ class UserServiceImplTest {
         );
     }
 
-
     @DisplayName("존재하지 않는 Id로 getById 할 시 예외가 발생한다.")
     @Test
     void getByIdTestThrowException() {
@@ -65,6 +64,18 @@ class UserServiceImplTest {
         // when // then
         assertThatThrownBy(() -> userService.getById(notExistsId)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("User not found");
+    }
+
+    @DisplayName("이메일이 기가입되어 있는지 확인한다.")
+    @Test
+    void getByEmailTest() {
+        // given
+        String exist_email = "pjhwork97@gmail.com";
+        String non_exist_email = "pjhwork979@gmail.com";
+
+        // when then
+        assertThat(userService.findByEmail(exist_email)).isTrue();
+        assertThat(userService.findByEmail(non_exist_email)).isFalse();
     }
 
     @DisplayName("유저 정보를 저장한다")

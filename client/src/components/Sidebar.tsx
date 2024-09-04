@@ -19,7 +19,7 @@ const Sidebar = () => {
             {isSidebarOpen && (
                 <SidebarContainer>
                     <StyledLink to="/">Home</StyledLink>
-                    {/* Add more links or content here */}
+                    <StyledLink to="/">Anniversary</StyledLink>
                 </SidebarContainer>
             )}
         </>

@@ -2,13 +2,16 @@
 import React, {Suspense, lazy} from 'react';
 import {BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
 import './App.css';
+import {useSelector} from "react-redux";
+import {getAccessToken} from "./store/reducer/reducerUser";
 
 const Login = lazy(() => import('./pages/Login'));
 const Main = lazy(() => import('./pages/Main'));
 
 const isAuthenticated = () => {
     // Todo: 로그인 여부를 확인하는 로직을 작성합니다.
-    return true;
+    const accessToken = sessionStorage.getItem('accessToken');
+    return accessToken !== null;
 };
 
 function App() {

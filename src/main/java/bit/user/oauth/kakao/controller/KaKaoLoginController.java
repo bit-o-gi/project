@@ -15,19 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/oauth")
+@RequestMapping("/api/v1/oauth")
 public class KaKaoLoginController {
 
     private final OAuthService oAuthService;
 
-    // NOTE: 이부분 properties 에 변수 내용 없어서 오류 뜸 -> 값 공유 해주세요.
     @Value("${kakao.client.id}")
     String clientId;
     @Value("${kakao.redirect.uri}")
     String redirectUri;
     @Value("${kakao.client.secret}")
     String clientSecret;
-    //
+
     @GetMapping("/kakao")
     public String getAuthKakao() {
         return "https://kauth.kakao.com/oauth/authorize?"
@@ -44,7 +43,7 @@ public class KaKaoLoginController {
     }
 
     @PostMapping("/kakao/access")
-    public HttpStatus postGetUserInfo(@RequestBody String accessToken) throws JsonProcessingException {
+    public String postGetUserInfo(@RequestBody String accessToken) throws JsonProcessingException {
         return oAuthService.getUserInfo(accessToken);
     }
 }
