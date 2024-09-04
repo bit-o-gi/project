@@ -18,7 +18,6 @@ const Sidebar = () => {
             {isSidebarOpen && <Overlay onClick={() => dispatch(toggleSidebar())}/>}
             {isSidebarOpen && (
                 <SidebarContainer>
-                    <StyledLink to="/log">Login</StyledLink>
                     <StyledLink to="/">Home</StyledLink>
                     <StyledLink to="/">Anniversary</StyledLink>
                 </SidebarContainer>
