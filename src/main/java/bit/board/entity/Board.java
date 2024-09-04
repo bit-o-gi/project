@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 @Entity
 @Builder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Board {

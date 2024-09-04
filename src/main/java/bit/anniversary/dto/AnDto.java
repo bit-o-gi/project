@@ -10,7 +10,6 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Getter
 @Component
 public class AnDto {

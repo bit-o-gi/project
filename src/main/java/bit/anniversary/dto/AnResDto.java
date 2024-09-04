@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import lombok.Builder;
 import lombok.Getter;
 
-@Builder
 @Component
 @Getter
 public class AnResDto {

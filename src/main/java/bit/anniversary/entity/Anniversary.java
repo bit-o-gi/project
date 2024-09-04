@@ -41,7 +41,7 @@ public class Anniversary {
 
 	@Autowired
 	public Anniversary(ModelMapper modelMapper) {
-		Anniversary.modelMapper = modelMapper; // 수정된 부분
+		Anniversary.modelMapper = modelMapper;
 	}
 
 	public AnDto creatAnniversary() {
