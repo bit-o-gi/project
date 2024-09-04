@@ -1,17 +1,10 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import styled from 'styled-components';
+import React from 'react';
 import kakaoLoginImage from '../assets/images/kakao_login.png';
 import axios from "axios";
+import tw from "tailwind-styled-components";
+
 
 function Login() {
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const navigate = useNavigate();
-
-    const handleLogin = () => {
-        setIsPopupOpen(true);
-    }
-
     const handleKakaoLoginBtn = () => {
         axios.get('http://localhost:8080/oauth/kakao').then((res) => {
             window.location.href = res.data;
@@ -20,38 +13,43 @@ function Login() {
         });
     }
 
-    const closePopup = () => {
-        setIsPopupOpen(false);
-        navigate('/');
-    }
-
     return (
-        <div className="Login">
-            <h2>Login</h2>
-            <ImgButton src={kakaoLoginImage} alt="kakaoLogin" onClick={handleKakaoLoginBtn}/>
-            {isPopupOpen && (
-                <Popup>
-                    <h3>Login</h3>
-                    <button onClick={closePopup}>Close</button>
-                </Popup>
-            )}
-        </div>
-    );
+        <Container>
+            <Content>
+                <Title>Welcome, Login!</Title>
+                <ImgButton src={kakaoLoginImage} alt="kakaoLogin" onClick={handleKakaoLoginBtn}/>
+            </Content>
+        </Container>);
 }
 
-const ImgButton = styled.img`
-    cursor: pointer;
+
+const ImgButton = tw.img`
+    cursor-pointer
+    items-center
+    justify-center
+    mx-auto
 `;
 
-const Popup = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+const Container = tw.div`
+    flex
+    items-center
+    justify-center
+    min-h-screen
+    bg-gray-100
+`;
+
+const Content = tw.div`
+    text-center
+    bg-white
+    p-8
+    rounded-lg
+    shadow-lg
+`;
+
+const Title = tw.h2`
+    text-2xl
+    font-bold
+    mb-4
 `;
 
 export default Login;
