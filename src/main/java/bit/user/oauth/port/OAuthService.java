@@ -7,5 +7,5 @@ public interface OAuthService {
     String getToken(String code, String clientId, String redirectUri, String clientSecret)
             throws JsonProcessingException;
 
-    HttpStatus getUserInfo(String token) throws JsonProcessingException;
+    String getUserInfo(String token) throws JsonProcessingException;
 }
