@@ -22,7 +22,7 @@ public class NewScheduleController {
 
     @GetMapping("/user/{userId}")
     public List<NewScheduleResponse> getScheduleByUser(@PathVariable Long userId) {
-        return newScheduleService.getScheduleByUserId(userId);
+        return newScheduleService.getSchedulesByUserId(userId);
     }
 
     @PostMapping("")
