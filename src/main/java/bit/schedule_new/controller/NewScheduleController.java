@@ -30,7 +30,7 @@ public class NewScheduleController {
         return newScheduleService.saveSchedule(newScheduleRequest);
     }
 
-    @PatchMapping("/{scheduleId}")
+    @PutMapping("/{scheduleId}")
     public NewScheduleResponse updateSchedule(@PathVariable Long scheduleId, @Valid @RequestBody NewScheduleRequest newScheduleRequest) {
         return newScheduleService.updateSchedule(scheduleId, newScheduleRequest);
     }
