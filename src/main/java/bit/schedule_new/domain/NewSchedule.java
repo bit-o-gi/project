@@ -42,6 +42,7 @@ public class NewSchedule extends BaseEntity {
     }
 
     public void update(NewScheduleRequest newScheduleRequest) {
+        Objects.requireNonNull(newScheduleRequest);
         checkStartEndDateTime(newScheduleRequest.getStartDateTime(), newScheduleRequest.getEndDateTime());
         this.userId = Objects.requireNonNull(newScheduleRequest.getUserId());
         this.title = Objects.requireNonNull(newScheduleRequest.getTitle());
