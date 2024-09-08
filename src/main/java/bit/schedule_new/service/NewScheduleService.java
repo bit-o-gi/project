@@ -8,7 +8,7 @@ import java.util.List;
 public interface NewScheduleService {
     NewScheduleResponse getSchedule(Long scheduleId);
 
-    List<NewScheduleResponse> getScheduleByUserId(Long userId);
+    List<NewScheduleResponse> getSchedulesByUserId(Long userId);
 
     NewScheduleResponse saveSchedule(NewScheduleRequest newScheduleRequest);
 

@@ -64,7 +64,7 @@ class NewScheduleControllerTest {
         List<NewScheduleResponse> response = IntStream.range(0, 10)
                 .mapToObj(i -> new NewScheduleResponse(newSchedule))
                 .toList();
-        when(newScheduleService.getScheduleByUserId(0L)).thenReturn(response);
+        when(newScheduleService.getSchedulesByUserId(0L)).thenReturn(response);
         //When
         //Then
         mockMvc.perform(

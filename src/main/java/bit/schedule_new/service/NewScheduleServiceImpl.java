@@ -25,7 +25,7 @@ public class NewScheduleServiceImpl implements NewScheduleService {
     }
 
     @Override
-    public List<NewScheduleResponse> getScheduleByUserId(Long userId) {
+    public List<NewScheduleResponse> getSchedulesByUserId(Long userId) {
         return newScheduleRepository.findByUserId(userId)
                 .stream()
                 .map(NewScheduleResponse::new)
