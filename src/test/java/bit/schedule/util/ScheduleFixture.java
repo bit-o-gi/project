@@ -1,13 +1,13 @@
-package bit.schedule_new.util;
+package bit.schedule.util;
 
-import bit.schedule_new.domain.NewSchedule;
+import bit.schedule.domain.Schedule;
 
 import java.time.LocalDateTime;
 
-public class NewScheduleFixture {
+public class ScheduleFixture {
 
-    public static NewSchedule getNewSchedule(LocalDateTime start, LocalDateTime end) {
-        return NewSchedule.builder()
+    public static Schedule getNewSchedule(LocalDateTime start, LocalDateTime end) {
+        return Schedule.builder()
                 .userId(1L)
                 .title("title")
                 .content("content")
