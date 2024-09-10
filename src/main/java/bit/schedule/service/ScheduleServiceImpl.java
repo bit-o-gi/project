@@ -1,47 +1,64 @@
 package bit.schedule.service;
 
-import bit.schedule.dto.ScheduleRequest;
-import bit.schedule.repository.ScheduleRepository;
 import bit.schedule.domain.Schedule;
-import java.time.LocalDateTime;
+import bit.schedule.dto.ScheduleRequest;
+import bit.schedule.dto.ScheduleResponse;
+import bit.schedule.repository.ScheduleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ScheduleServiceImpl implements ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
-    public Schedule getSchedule(Long id) {
-        return scheduleRepository.findById(id).orElse(null);
+    @Override
+    public ScheduleResponse getSchedule(Long scheduleId) {
+        Schedule schedule = findScheduleById(scheduleId);
+        return new ScheduleResponse(schedule);
     }
 
-    public Schedule save(ScheduleRequest scheduleRequest) {
-        checkScheduleStartToEndValid(scheduleRequest.getStartDateTime(), scheduleRequest.getEndDateTime());
-
-        return scheduleRepository.save(scheduleRequest.toEntity());
+    @Override
+    public List<ScheduleResponse> getSchedulesByUserId(Long userId) {
+        return scheduleRepository.findByUserId(userId)
+                .stream()
+                .map(ScheduleResponse::new)
+                .toList();
     }
 
-    public Schedule patch(Long id, ScheduleRequest scheduleRequest) {
-        Schedule schedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 일정이 존재하지 않습니다."));
-        checkScheduleStartToEndValid(scheduleRequest.getStartDateTime(), schedule.getEndDateTime());
+    @Transactional
+    @Override
+    public ScheduleResponse saveSchedule(ScheduleRequest scheduleRequest) {
+        Schedule schedule = scheduleRequest.toEntity();
+        scheduleRepository.save(schedule);
+        return new ScheduleResponse(schedule);
+    }
 
+    @Transactional
+    @Override
+    public ScheduleResponse updateSchedule(Long scheduleId, ScheduleRequest scheduleRequest) {
+        Schedule schedule = findScheduleById(scheduleId);
         schedule.update(scheduleRequest);
-        return scheduleRepository.save(schedule);
+        scheduleRepository.save(schedule);
+        return new ScheduleResponse(schedule);
     }
 
-    public Schedule delete(Long id) {
-        Schedule deleteSchedule = scheduleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 일정이 존재하지 않습니다."));
-        scheduleRepository.deleteById(id);
-        return deleteSchedule;
+    @Transactional
+    @Override
+    public ScheduleResponse deleteSchedule(Long scheduleId) {
+        Schedule schedule = findScheduleById(scheduleId);
+        scheduleRepository.deleteById(scheduleId);
+        return new ScheduleResponse(schedule);
     }
 
-    private void checkScheduleStartToEndValid(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        if (startDateTime.isAfter(endDateTime)) {
-            throw new IllegalArgumentException("시작 시간이 종료 시간보다 늦을 수 없습니다.");
-        }
+    private Schedule findScheduleById(Long scheduleId) {
+        return scheduleRepository.findById(scheduleId)
+                .orElseThrow(() -> new EntityNotFoundException("스케줄을 찾지 못했습니다."));
     }
 }
