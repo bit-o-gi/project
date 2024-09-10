@@ -1,14 +1,18 @@
 package bit.schedule.service;
 
 import bit.schedule.dto.ScheduleRequest;
-import bit.schedule.domain.Schedule;
+import bit.schedule.dto.ScheduleResponse;
+
+import java.util.List;
 
 public interface ScheduleService {
-    Schedule getSchedule(Long id);
+    ScheduleResponse getSchedule(Long scheduleId);
 
-    Schedule save(ScheduleRequest scheduleRequest);
+    List<ScheduleResponse> getSchedulesByUserId(Long userId);
 
-    Schedule patch(Long id, ScheduleRequest scheduleRequest);
+    ScheduleResponse saveSchedule(ScheduleRequest scheduleRequest);
 
-    Schedule delete(Long id);
+    ScheduleResponse updateSchedule(Long scheduleId, ScheduleRequest scheduleRequest);
+
+    ScheduleResponse deleteSchedule(Long scheduleId);
 }

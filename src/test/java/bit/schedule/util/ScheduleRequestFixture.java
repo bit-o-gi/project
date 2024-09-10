@@ -1,13 +1,13 @@
-package bit.schedule_new.util;
+package bit.schedule.util;
 
-import bit.schedule_new.dto.NewScheduleRequest;
+import bit.schedule.dto.ScheduleRequest;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class NewScheduleRequestFixture {
-    public static NewScheduleRequest getNewScheduleRequest(LocalDateTime start, LocalDateTime end) {
-        return NewScheduleRequest.builder()
+public class ScheduleRequestFixture {
+    public static ScheduleRequest getNewScheduleRequest(LocalDateTime start, LocalDateTime end) {
+        return ScheduleRequest.builder()
                 .userId(1L)
                 .title("title")
                 .content("content")
@@ -16,33 +16,33 @@ public class NewScheduleRequestFixture {
                 .build();
     }
 
-    public static List<NewScheduleRequest> getNewScheduleRequests() {
+    public static List<ScheduleRequest> getNewScheduleRequests() {
         return List.of(
-                NewScheduleRequest.builder()
+                ScheduleRequest.builder()
                         .title("title")
                         .content("content")
                         .startDateTime(LocalDateTime.now())
                         .endDateTime(LocalDateTime.now().plusHours(1))
                         .build(),
-                NewScheduleRequest.builder()
+                ScheduleRequest.builder()
                         .userId(1L)
                         .content("content")
                         .startDateTime(LocalDateTime.now())
                         .endDateTime(LocalDateTime.now().plusHours(1))
                         .build(),
-                NewScheduleRequest.builder()
+                ScheduleRequest.builder()
                         .userId(1L)
                         .title("title")
                         .startDateTime(LocalDateTime.now())
                         .endDateTime(LocalDateTime.now().plusHours(1))
                         .build(),
-                NewScheduleRequest.builder()
+                ScheduleRequest.builder()
                         .userId(1L)
                         .title("title")
                         .content("content")
                         .endDateTime(LocalDateTime.now().plusHours(1))
                         .build(),
-                NewScheduleRequest.builder()
+                ScheduleRequest.builder()
                         .userId(1L)
                         .title("title")
                         .content("content")

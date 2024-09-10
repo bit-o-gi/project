@@ -1,6 +1,6 @@
-package bit.schedule_new.dto;
+package bit.schedule.dto;
 
-import bit.schedule_new.domain.NewSchedule;
+import bit.schedule.domain.Schedule;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @EqualsAndHashCode
 @Getter
-public class NewScheduleResponse {
+public class ScheduleResponse {
     private Long id;
 
     private Long userId;
@@ -21,7 +21,7 @@ public class NewScheduleResponse {
 
     private LocalDateTime endDateTime;
 
-    public NewScheduleResponse(NewSchedule schedule) {
+    public ScheduleResponse(Schedule schedule) {
         this.id = schedule.getId();
         this.userId = schedule.getUserId();
         this.title = schedule.getTitle();
