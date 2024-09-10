@@ -63,4 +63,16 @@ class ScheduleTest {
                 .hasMessageContaining("시작 시간은 종료 시간보다 늦을 수 없습니다.");
     }
 
+    @DisplayName("스케줄 객체를 수정 시 null 객체를 넣으면 에러를 발생시킨다.")
+    @Test
+    void updateValidScheduleRequest() {
+        //Given
+        ScheduleRequest scheduleRequest = getNewScheduleRequest(LocalDateTime.now(), LocalDateTime.now().plusHours(1));
+        Schedule schedule = scheduleRequest.toEntity();
+        //When
+        //Then
+        assertThatThrownBy(() -> schedule.update(null))
+                .isInstanceOf(NullPointerException.class);
+    }
+
 }
