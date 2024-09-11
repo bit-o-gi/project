@@ -1,12 +1,14 @@
 package bit.user.oauth.kakao.service;
 
 import bit.user.dto.UserDto;
+import bit.user.exception.KaKaoRestTemplateProcessingException;
 import bit.user.oauth.kakao.domain.KakaoUserInfo;
 import bit.user.oauth.port.OAuthService;
 import bit.user.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,8 +24,8 @@ import org.springframework.web.client.RestTemplate;
 public class KaKaoLoginServiceImpl implements OAuthService {
 
     private final UserService userService;
-    private final RestTemplate restTemplate = new RestTemplate();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Override
     public String getToken(String code, String clientId, String redirectUri, String clientSecret) {
@@ -37,32 +39,37 @@ public class KaKaoLoginServiceImpl implements OAuthService {
         httpBody.add("client_secret", clientSecret);
 
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(httpBody, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "https://kauth.kakao.com/oauth/token", httpEntity, String.class
-        );
+        ResponseEntity<String> response = restTemplate.postForEntity("https://kauth.kakao.com/oauth/token", httpEntity,
+                String.class);
 
         return response.getBody();
     }
 
     @Override
-    public String getUserInfo(String accessToken) throws JsonProcessingException {
+    public String getUserInfo(String accessToken) throws KaKaoRestTemplateProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
         HttpEntity<MultiValueMap<String, String>> httpEntity = new HttpEntity<>(headers);
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "https://kapi.kakao.com/v2/user/me", httpEntity, String.class
-        );
+        ResponseEntity<String> response = restTemplate.postForEntity("https://kapi.kakao.com/v2/user/me", httpEntity,
+                String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
-            JsonNode jsonNode = objectMapper.readTree(response.getBody());
-            createUserDomain(jsonNode);
+            String responseBody = Optional.ofNullable(response.getBody())
+                    .orElseThrow(() -> new KaKaoRestTemplateProcessingException("카카오 로그인 중 응답이 없습니다."));
+            try {
+                JsonNode jsonNode = objectMapper.readTree(responseBody);
+                createUserDomain(jsonNode);
+            } catch (JsonProcessingException e) {
+                throw new KaKaoRestTemplateProcessingException("카카오 로그인 중 에러가 발생하였습니다.");
+            }
         }
 
         return response.getBody();
     }
 
+    // Validation 관련 추가함
     private void createUserDomain(JsonNode jsonNode) {
         if (!userService.findByEmail(KakaoUserInfo.of(jsonNode).getEmail())) {
             userService.create(UserDto.fromKakaoUser(KakaoUserInfo.of(jsonNode)));
