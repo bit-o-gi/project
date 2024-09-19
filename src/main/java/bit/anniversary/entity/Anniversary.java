@@ -35,7 +35,10 @@ public class Anniversary {
 
 	private String content;
 
+	private String email;
+
 	private LocalDateTime antime;
+
 
 	private static ModelMapper modelMapper;
 
