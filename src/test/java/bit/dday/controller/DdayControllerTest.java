@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import bit.config.FixtureMonkeyConfig;
 import bit.dday.domain.Dday;
 import bit.dday.dto.DdayRequest;
 import bit.dday.service.DdayService;
@@ -26,32 +27,23 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 @WebMvcTest(controllers = DdayController.class)
+@Import(FixtureMonkeyConfig.class)
 class DdayControllerTest {
 
-    private static FixtureMonkey fixtureMonkey;
+    @Autowired
+    private FixtureMonkey fixtureMonkey;
     @Autowired
     private ObjectMapper objectMapper;
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private DdayService ddayService;
-
-    @BeforeAll
-    public static void setUp() {
-        fixtureMonkey = FixtureMonkey.builder()
-                .objectIntrospector(
-                        new FailoverIntrospector(Arrays.asList(
-                                JacksonObjectArbitraryIntrospector.INSTANCE,
-                                FieldReflectionArbitraryIntrospector.INSTANCE
-                        ))
-                )
-                .build();
-    }
 
     @DisplayName("디데이 조회 성공")
     @Test

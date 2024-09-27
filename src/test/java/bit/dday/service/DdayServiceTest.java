@@ -10,20 +10,24 @@
 //import bit.dday.dto.DdayRequest;
 //import bit.dday.dto.DdayRequestFixtures;
 //import bit.dday.repository.DdayRepository;
+//import com.navercorp.fixturemonkey.FixtureMonkey;
 //import java.util.Optional;
+//import org.junit.jupiter.api.BeforeAll;
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
 //import org.mockito.InjectMocks;
 //import org.mockito.Mock;
 //import org.mockito.junit.jupiter.MockitoExtension;
+//import org.springframework.beans.factory.annotation.Autowired;
 //
 //@ExtendWith(MockitoExtension.class)
 //public class DdayServiceTest {
 //
+//    @Autowired
+//    FixtureMonkey fixtureMonkey;
 //    @Mock
 //    private DdayRepository ddayRepository;
-//
 //    @InjectMocks
 //    private DdayService ddayService;
 //
@@ -31,8 +35,6 @@
 //    @Test
 //    void getDdaySuccessTest() throws Exception {
 //        // given
-//        Dday mockDday = DdayFixtures.initialDday();
-//        when(ddayRepository.findById(mockDday.getId())).thenReturn(Optional.of(mockDday));
 //
 //        // when
 //        Dday dday = ddayService.getDday(mockDday.getId());
