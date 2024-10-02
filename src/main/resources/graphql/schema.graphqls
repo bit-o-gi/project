@@ -37,11 +37,12 @@ input Andto{
 
 type AnResdto{
     id : ID
-    writetime : String
-    updatetime : String
+    writeTime : String
+    updateTime : String
     title : String
-    withpeople : String
+    withPeople : String
     content : String
+    anniversaryDate : String
 }
 
 #   보드
