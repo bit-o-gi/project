@@ -1,12 +1,14 @@
 package bit.anniversary.scheduled;
 
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import bit.anniversary.sevice.AnService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Component
 public class AnScheduled {
 
 	private final AnService anService;
