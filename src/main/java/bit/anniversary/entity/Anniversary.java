@@ -27,17 +27,19 @@ public class Anniversary {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String writer;
+	private String writeTime;
 
 	private String title;
 
-	private String withpeople;
+	private String writer;
+
+	private String withPeople;
+
+	private String updateTime;
 
 	private String content;
 
-	private String email;
-
-	private LocalDateTime antime;
+	private LocalDateTime anniversaryDate;
 
 
 	private static ModelMapper modelMapper;
@@ -54,7 +56,7 @@ public class Anniversary {
 	public void update(AnDto anDto) {
 		this.writer = anDto.getWriter();
 		this.title = anDto.getTitle();
-		this.withpeople = anDto.getWithpeople();
+		this.withPeople = anDto.getWithPeople();
 		this.content = anDto.getContent();
 	}
 
