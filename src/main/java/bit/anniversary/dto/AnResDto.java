@@ -1,5 +1,7 @@
 package bit.anniversary.dto;
 
+import java.time.LocalDateTime;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,13 +15,19 @@ public class AnResDto {
 
 	private Long id;
 
-	private String writetime;
+	private String writeTime;
 
 	private String title;
 
-	private String withpeople;
+	private String writer;
+
+	private String withPeople;
+
+	private String updateTime;
 
 	private String content;
+
+	private LocalDateTime anniversaryDate;
 
 	private static ModelMapper modelMapper;
 

@@ -16,15 +16,19 @@ public class AnDto {
 
 	private Long id;
 
-	private String writer;
+	private String writeTime;
 
 	private String title;
 
-	private String withpeople;
+	private String writer;
+
+	private String withPeople;
+
+	private String updateTime;
 
 	private String content;
 
-	private LocalDateTime antime;
+	private LocalDateTime anniversaryDate;
 
 	private static ModelMapper modelMapper;
 
