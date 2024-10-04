@@ -30,21 +30,16 @@ public class AnDto {
 
 	private LocalDateTime anniversaryDate;
 
-	private static ModelMapper modelMapper;
 
-	@Autowired
-	public AnDto(ModelMapper modelMapper) {
-		AnDto.modelMapper = modelMapper; // 수정된 부분
-	}
-	public Anniversary creatAnniversary() {
+	public Anniversary creatAnniversary(ModelMapper modelMapper) {
 		return modelMapper.map(this, Anniversary.class);
 	}
 
-	public AnResDto createAnReqDto() {
+	public AnResDto createAnReqDto(ModelMapper modelMapper) {
 		return modelMapper.map(this, AnResDto.class);
 	}
 
-	public static AnDto of(Anniversary anniversary) {
+	public static AnDto of(Anniversary anniversary,ModelMapper modelMapper) {
 		return modelMapper.map(anniversary, AnDto.class);
 	}
 

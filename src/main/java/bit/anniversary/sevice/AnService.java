@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +23,10 @@ public class AnService {
 
 	private final AnRepository anRepository;
 
+	private final ModelMapper modelMapper;
+
 	public AnDto saveAnniverSary(AnDto andto) {
-		return anRepository.save(andto.creatAnniversary()).creatAnniversary();
+		return anRepository.save(andto.creatAnniversary(modelMapper)).createAnniversary(modelMapper);
 	}
 
 	@Transactional
@@ -42,14 +45,14 @@ public class AnService {
 	@Transactional(readOnly = true)
 	public AnResDto getAnniverSary(AnDto anDto) {
 		return AnResDto.of(
-			anRepository.findById(anDto.getId()).orElseThrow(EntityNotFoundException::new).creatAnniversary());
+			anRepository.findById(anDto.getId()).orElseThrow(EntityNotFoundException::new).createAnniversary(modelMapper));
 	}
 
 	@Transactional(readOnly = true)
 	public List<AnResDto> getAnniverSaryList() {
 		List<AnResDto> anReqDtos = new ArrayList<>();
 		anRepository.findAll().forEach(entity -> {
-			anReqDtos.add(entity.creatAnniversary().createAnReqDto());
+			anReqDtos.add(entity.createAnniversary(modelMapper).createAnReqDto(modelMapper));
 		});
 		return anReqDtos;
 	}
@@ -82,18 +85,18 @@ public class AnService {
 	@Transactional(readOnly = true)
 	public List<AnResDto> getAnniversariesBetween(LocalDateTime startDate, LocalDateTime endDate) {
 		List<AnResDto> result = new ArrayList<>();
-		anRepository.findAllByAntimeBetween(startDate, endDate)
-			.forEach(entity -> result.add(entity.creatAnniversary().createAnReqDto()));
+		anRepository.findAllByAnniversaryDateBetween(startDate, endDate)
+			.forEach(entity -> result.add(entity.createAnniversary(modelMapper).createAnReqDto(modelMapper)));
 		return result;
 	}
 
 	// NOTE:  사용자 정의 기념일 이벤트 처리
 	public AnDto saveCustomAnniversary(AnDto anDto, String customEvent) {
-		Anniversary entity = anRepository.save(anDto.creatAnniversary());
+		Anniversary entity = anRepository.save(anDto.creatAnniversary(modelMapper));
 		// TODO: 커스텀 이벤트
 		// entity.CustomEvent(customEvent);
 
-		return entity.creatAnniversary();
+		return entity.createAnniversary(modelMapper);
 	}
 
 	// NOTE: 이벤트 카운트 다운.
@@ -101,7 +104,7 @@ public class AnService {
 	public Map<String, Long> getAnniversaryCountdown(Long anniversaryId) {
 		Anniversary anniversary = anRepository.findById(anniversaryId)
 			.orElseThrow(EntityNotFoundException::new);
-		long daysRemaining = getNowAnniverSary(anniversary.creatAnniversary().getAntime());
+		long daysRemaining = getNowAnniverSary(anniversary.createAnniversary(modelMapper).getAnniversaryDate());
 		return Map.of("daysRemaining", daysRemaining);
 	}
 

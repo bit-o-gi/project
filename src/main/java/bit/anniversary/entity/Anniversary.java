@@ -3,8 +3,6 @@ package bit.anniversary.entity;
 import java.time.LocalDateTime;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import bit.anniversary.dto.AnDto;
 import jakarta.persistence.Entity;
@@ -17,7 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Component
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -27,7 +25,9 @@ public class Anniversary {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String writeTime;
+	private String writeTime;  // DB의 write_time 필드와 일치
+
+	private String updateTime; // DB의 update_time 필드와 일치
 
 	private String title;
 
@@ -35,31 +35,20 @@ public class Anniversary {
 
 	private String withPeople;
 
-	private String updateTime;
-
 	private String content;
 
-	private LocalDateTime anniversaryDate;
+	private LocalDateTime anniversaryDate;  // DB의 anniversary_date 필드와 일치
 
-
-	private static ModelMapper modelMapper;
-
-	@Autowired
-	public Anniversary(ModelMapper modelMapper) {
-		Anniversary.modelMapper = modelMapper;
-	}
-
-	public AnDto creatAnniversary() {
+	// 엔티티를 DTO로 변환하는 메서드
+	public AnDto createAnniversary(ModelMapper modelMapper) {
 		return modelMapper.map(this, AnDto.class);
 	}
 
+	// DTO에서 엔티티를 업데이트하는 메서드
 	public void update(AnDto anDto) {
 		this.writer = anDto.getWriter();
 		this.title = anDto.getTitle();
 		this.withPeople = anDto.getWithPeople();
 		this.content = anDto.getContent();
 	}
-
 }
-
-
