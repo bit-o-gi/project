@@ -23,9 +23,12 @@ public class AnController {
 	// 	TODO: 기념일 설정 기능
 	// 	TODO: 함께 하는 사람 , 글쓴이 회원가입 이후 구현.
 	@MutationMapping
-	public AnResDto createAnniversary(@Argument AnDto andto) {
-
-		return anniversaryservice.saveAnniverSary(andto).createAnReqDto(modelMapper);
+	public AnResDto createAnniversary(@Argument("anDto") AnDto anDto) {
+		System.out.println("Received anDto: " + anDto);
+		if (anDto == null) {
+			throw new IllegalArgumentException("anDto cannot be null");
+		}
+		return anniversaryservice.saveAnniverSary(anDto).createAnReqDto(modelMapper);
 	}
 
 	//	TODO: 기념일 업데이트 기능

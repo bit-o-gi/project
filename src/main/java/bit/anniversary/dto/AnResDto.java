@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import lombok.Builder;
 import lombok.Getter;
 
-@Component
 @Getter
 public class AnResDto {
 
@@ -29,14 +28,7 @@ public class AnResDto {
 
 	private LocalDateTime anniversaryDate;
 
-	private static ModelMapper modelMapper;
-
-	@Autowired
-	public AnResDto(ModelMapper modelMapper) {
-		AnResDto.modelMapper = modelMapper; // 수정된 부분
-	}
-
-	public static AnResDto of(AnDto anDto) {
+	public static AnResDto of(AnDto anDto,ModelMapper modelMapper) {
 		return modelMapper.map(anDto, AnResDto.class);
 	}
 

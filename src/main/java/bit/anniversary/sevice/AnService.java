@@ -45,7 +45,7 @@ public class AnService {
 	@Transactional(readOnly = true)
 	public AnResDto getAnniverSary(AnDto anDto) {
 		return AnResDto.of(
-			anRepository.findById(anDto.getId()).orElseThrow(EntityNotFoundException::new).createAnniversary(modelMapper));
+			anRepository.findById(anDto.getId()).orElseThrow(EntityNotFoundException::new).createAnniversary(modelMapper),modelMapper);
 	}
 
 	@Transactional(readOnly = true)
