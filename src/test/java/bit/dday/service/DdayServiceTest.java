@@ -1,48 +1,49 @@
-//package bit.dday.service;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.BDDMockito.then;
-//import static org.mockito.Mockito.when;
-//
-//import bit.dday.domain.Dday;
-//import bit.dday.domain.DdayFixtures;
-//import bit.dday.dto.DdayRequest;
-//import bit.dday.dto.DdayRequestFixtures;
-//import bit.dday.repository.DdayRepository;
-//import com.navercorp.fixturemonkey.FixtureMonkey;
-//import java.util.Optional;
-//import org.junit.jupiter.api.BeforeAll;
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.beans.factory.annotation.Autowired;
-//
-//@ExtendWith(MockitoExtension.class)
-//public class DdayServiceTest {
-//
-//    @Autowired
-//    FixtureMonkey fixtureMonkey;
-//    @Mock
-//    private DdayRepository ddayRepository;
-//    @InjectMocks
-//    private DdayService ddayService;
-//
-//    @DisplayName("디데이 조회 성공")
-//    @Test
-//    void getDdaySuccessTest() throws Exception {
-//        // given
-//
-//        // when
-//        Dday dday = ddayService.getDday(mockDday.getId());
-//
-//        // then
-//        assertThat(dday).usingRecursiveComparison().isEqualTo(mockDday);
-//    }
-//
+package bit.dday.service;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+import bit.config.FixtureMonkeyConfig;
+import bit.dday.domain.Dday;
+import bit.dday.repository.DdayRepository;
+import com.navercorp.fixturemonkey.FixtureMonkey;
+import com.navercorp.fixturemonkey.api.type.TypeReference;
+import java.util.Optional;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+
+@Import(FixtureMonkeyConfig.class)
+@SpringBootTest
+public class DdayServiceTest {
+
+    @Autowired
+    private FixtureMonkey fixtureMonkey;
+    @Mock
+    private DdayRepository ddayRepository;
+    @InjectMocks
+    private DdayService ddayService;
+
+    @DisplayName("디데이 조회 성공")
+    @Test
+    void getDdaySuccessTest() {
+        // given
+        Optional<Dday> optionalDday = fixtureMonkey.giveMeBuilder(new TypeReference<Optional<Dday>>() {
+        }).set("id", 1L).sample();
+        when(ddayRepository.findById(any())).thenReturn(optionalDday);
+
+        // when
+        Dday dday = ddayService.getDday(1L);
+
+        // then
+        assertThat(dday).usingRecursiveComparison().isEqualTo(optionalDday.get());
+    }
+
 //    @DisplayName("디데이 생성 성공")
 //    @Test
 //    void createDdaySuccessTest() throws Exception {
@@ -89,4 +90,4 @@
 //        then(ddayRepository).should().existsById(any());
 //        then(ddayRepository).should().deleteById(any());
 //    }
-//}
+}

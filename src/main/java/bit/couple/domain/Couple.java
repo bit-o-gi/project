@@ -23,13 +23,9 @@ public class Couple extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // UserEntity 쪽에서도 mapping 필요!
-    @Transient
     @OneToMany(mappedBy = "couple")
     private List<UserEntity> users;
 
-    // Dday 쪽에서도 mapping 필요!
-    @Transient
     @OneToOne(mappedBy = "couple")
     private Dday dday;
 

@@ -1,14 +1,12 @@
 package bit.dday.service;
 
 import bit.couple.domain.Couple;
-import bit.couple.exception.CoupleException;
 import bit.couple.exception.CoupleException.CoupleNotFoundException;
 import bit.couple.repository.CoupleRepository;
 import bit.dday.domain.Dday;
 import bit.dday.dto.DdayCommand;
 import bit.dday.exception.DdayException.DdayNotFoundException;
 import bit.dday.repository.DdayRepository;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
