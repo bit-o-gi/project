@@ -10,11 +10,16 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
 
-    private UserJpaRepository userJpaRepository;
+    private final UserJpaRepository userJpaRepository;
 
     @Override
     public Optional<User> findById(long id) {
-        return Optional.empty();
+        return userJpaRepository.findById(id).map(UserEntity::toModel);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userJpaRepository.findByEmail(email).map(UserEntity::toModel);
     }
 
     @Override
