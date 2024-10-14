@@ -1,5 +1,6 @@
 package bit.user.entity;
 
+import bit.couple.domain.Couple;
 import bit.schedule.domain.BaseEntity;
 import bit.user.domain.User;
 import bit.user.oauth.OauthPlatformStatus;
@@ -10,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.Getter;
 
@@ -32,6 +35,11 @@ public class UserEntity extends BaseEntity {
     private OauthPlatformStatus platform;
 
     private LocalDateTime registerDate;
+
+    // TODO: 연관관계 추가로 인한 로직 수정 필요
+    @ManyToOne
+    @JoinColumn(name = "couple_id")
+    private Couple couple;
 
     public static UserEntity from(User user) {
         UserEntity userEntity = new UserEntity();

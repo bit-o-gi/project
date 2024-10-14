@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(CoupleController.COUPLE_PATH)
 public class CoupleController {
 
-    public static final String COUPLE_PATH = "/api/v1/couple";
+    public static final String COUPLE_PATH = "/api/v1/couples";
+
 
     private final CoupleService coupleService;
 
