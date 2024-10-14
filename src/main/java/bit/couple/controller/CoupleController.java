@@ -20,6 +20,7 @@ public class CoupleController {
 
     public static final String COUPLE_PATH = "/api/v1/couples";
 
+
     private final CoupleService coupleService;
 
     @PostMapping
