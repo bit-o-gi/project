@@ -1,7 +1,7 @@
 package bit.couple.domain;
 
 import bit.user.domain.User;
-import bit.user.entity.UserEntity;
+import bit.user.oauth.OauthPlatformStatus;
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,25 +18,24 @@ public class CoupleFixtures {
         return couple;
     }
 
-    public static List<UserEntity> initialUsers() {
-        UserEntity user1 = UserEntity.from(User.builder()
+    public static List<User> initialUsers() {
+        User user1 = User.builder()
                 .id(1L)
                 .email("email1@naver.com")
                 .nickName("nickname1")
                 .gender("남성")
-                .platform("카카오")
+                .platform(OauthPlatformStatus.KAKAO)
                 .registerDate(LocalDateTime.now())
-                .build());
+                .build();
 
-        UserEntity user2 = UserEntity.from(User.builder()
+        User user2 = User.builder()
                 .id(2L)
                 .email("email2@naver.com")
                 .nickName("nickname2")
                 .gender("여성")
-                .platform("카카오")
+                .platform(OauthPlatformStatus.KAKAO)
                 .registerDate(LocalDateTime.now())
-                .build());
-
+                .build();
         return List.of(user1, user2);
     }
 }

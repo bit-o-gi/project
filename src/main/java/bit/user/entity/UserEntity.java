@@ -13,11 +13,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.Getter;
 
 @Entity
 @Getter
+@Table(name = "APPUSER")
 public class UserEntity extends BaseEntity {
 
     @Id
@@ -36,7 +39,6 @@ public class UserEntity extends BaseEntity {
 
     private LocalDateTime registerDate;
 
-    // TODO: 연관관계 추가로 인한 로직 수정 필요
     @ManyToOne
     @JoinColumn(name = "couple_id")
     private Couple couple;
@@ -48,7 +50,14 @@ public class UserEntity extends BaseEntity {
         userEntity.nickName = user.getNickName();
         userEntity.platform = user.getPlatform();
         userEntity.registerDate = user.getRegisterDate();
+        userEntity.couple = user.getCouple();
         return userEntity;
+    }
+
+    public static List<UserEntity> fromList(List<User> users) {
+        return users.stream()
+                .map(UserEntity::from)
+                .toList();
     }
 
     public User toModel() {
@@ -59,6 +68,7 @@ public class UserEntity extends BaseEntity {
                 .gender(gender)
                 .platform(platform)
                 .registerDate(registerDate)
+                .couple(couple)
                 .build();
     }
 

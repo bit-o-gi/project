@@ -41,7 +41,7 @@ class CoupleControllerTest {
     @DisplayName("커플 생성 성공")
     void createCouple() throws Exception {
         // given
-        List<UserEntity> users = CoupleFixtures.initialUsers();
+        List<UserEntity> users = UserEntity.fromList(CoupleFixtures.initialUsers());
         CoupleRequest coupleRequest = CoupleRequestFixtures.of(users);
         doNothing().when(coupleService).createCouple(any());
 

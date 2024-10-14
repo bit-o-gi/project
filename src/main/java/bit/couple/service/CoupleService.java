@@ -4,18 +4,23 @@ import bit.couple.domain.Couple;
 import bit.couple.dto.CoupleCommand;
 import bit.couple.exception.CoupleException.CoupleNotFoundException;
 import bit.couple.repository.CoupleRepository;
+import bit.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class CoupleService {
 
     private final CoupleRepository coupleRepository;
+    private final UserService userService;
 
+    @Transactional
     public void createCouple(CoupleCommand command) {
         Couple couple = Couple.of(command.getUsers());
         coupleRepository.save(couple);
+        userService.updateCouple(command.getUsers(), couple);
     }
 
     public void approveCouple(Long coupleId) {
