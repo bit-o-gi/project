@@ -1,17 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../store';
-import {openSidebar, closeSidebar} from '../store/reducer/reducerSidebar';
-import {
-    Drawer,
-    Button,
-    Typography,
-    IconButton,
-    List,
-    ListItem,
-    ListItemPrefix
-} from "@material-tailwind/react";
+import {closeSidebar, openSidebar} from '../store/reducer/reducerSidebar';
+import {Button, Drawer, IconButton, List, ListItem, ListItemPrefix, Typography} from "@material-tailwind/react";
 
 const Sidebar = () => {
     const isSidebarOpen = useSelector((state: RootState) => state.sidebar.isOpen);
@@ -19,7 +11,24 @@ const Sidebar = () => {
 
     return (
         <>
-            <Button onClick={() => dispatch(openSidebar())}>Open Drawer</Button>
+            <div className="fixed top-4 left-4">
+
+                <Button
+                    className=" p-2 bg-blue-500 text-white rounded-full shadow-lg"
+                    onClick={() => dispatch(openSidebar())}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                        stroke="currentColor"
+                        className="h-6 w-6"
+                    >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7"/>
+                    </svg>
+                </Button>
+            </div>
             {isSidebarOpen && (
                 <Drawer open={isSidebarOpen} onClose={() => dispatch(closeSidebar())}>
                     <div className="mb-2 flex items-center justify-between p-4">
