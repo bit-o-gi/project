@@ -53,7 +53,7 @@ const Sidebar = () => {
                         </IconButton>
                     </div>
                     <List>
-                        <Link to={'/'}>
+                        <Link to={'/'} onClick={() => dispatch(closeSidebar())}>
                             <ListItem>
                                 <ListItemPrefix>
                                     <svg
@@ -89,6 +89,11 @@ const Sidebar = () => {
                             </ListItemPrefix>
                             Anniversary
                         </ListItem>
+                        <Link to={'/couple'} onClick={() => dispatch(closeSidebar())}>
+                            <ListItem>
+                                커플 연결하기
+                            </ListItem>
+                        </Link>
                         <ListItem>
                             <ListItemPrefix>
                                 <svg
